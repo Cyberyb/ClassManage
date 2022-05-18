@@ -30,4 +30,18 @@ public class ElectclassServiceImpl extends ServiceImpl<ElectclassMapper, Electcl
         Electclass electclass = new Electclass();
         return  electclass;
     }
+
+    @Override
+    public Boolean deletecourse(String stuId, String couId, String teaId) {
+        Boolean res = electclassMapper.delcourse(stuId, couId, teaId);
+        System.out.println(res);
+        return res;
+    }
+
+    @Override
+    public Electclass updategrade(String stuId, String couId, String teaId, String cj) {
+        electclassMapper.updategrade(stuId,couId,teaId,cj);
+        Electclass electclass = new Electclass();
+        return electclass;
+    }
 }

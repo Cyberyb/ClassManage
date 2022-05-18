@@ -73,6 +73,29 @@ const routes = [
     ]
   },
   {
+    path: '/t',
+    name: 'TManage',
+    redirect: '/t/home',
+    component:() => import('../views/TManage.vue'),
+    children: [
+      {
+        path: 'home',
+        name:'teaHome',
+        component: () => import('../views/Home.vue')
+      },
+      {
+        path: 'teacher',
+        name: 'teachergrade',
+        component: () => import('../views/TElectclass.vue'),
+      },
+      {
+        path: 'myclass',
+        name: 'teacherclass',
+        component: () => import('../views/SElectclass.vue'),
+      },
+    ]
+  },
+  {
     path:'/login',
     name:'Login',
     component: () => import('../views/Login.vue')

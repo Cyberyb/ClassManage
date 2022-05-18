@@ -35,6 +35,15 @@ public class ElectclassController {
         return electclassService.saveOrUpdate(electclass);
     }
 
+    @PostMapping("/updategrade/{stuId}/{couId}/{teaId}/{cj}")
+    public Electclass updategrade(@PathVariable String stuId,
+                               @PathVariable String couId,
+                               @PathVariable String teaId,
+                               @PathVariable String cj){
+        return electclassService.updategrade(stuId,couId,teaId,cj);
+    }
+
+    //选课
     @PostMapping("/selectcourse/{stuId}/{couId}/{teaId}")
     public Electclass selectcourse(@PathVariable String stuId,
                              @PathVariable String couId,
@@ -45,6 +54,14 @@ public class ElectclassController {
     @GetMapping
     public List<Electclass> findAll() {
         return electclassService.list();
+    }
+
+    //退课
+    @DeleteMapping("/delcourse/{stuId}/{couId}/{teaId}")
+    public Boolean delcourse(@PathVariable String stuId,
+                             @PathVariable String couId,
+                             @PathVariable String teaId){
+        return electclassService.deletecourse(stuId,couId,teaId);
     }
 
     @DeleteMapping("/{id}")

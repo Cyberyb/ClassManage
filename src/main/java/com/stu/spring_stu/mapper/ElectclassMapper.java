@@ -16,6 +16,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ElectclassMapper extends BaseMapper<Electclass> {
 
-    void  delcourse(String stuId, String couId, String teaId);
+    Boolean delcourse(String stuId, String couId, String teaId);
     void selectcourse(String stuId, String couId, String teaId);
+
+    void updategrade(String stuId, String couId, String teaId, String cj);
 }

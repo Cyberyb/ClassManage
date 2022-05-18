@@ -12,7 +12,7 @@
       <b style="color: white" v-show="logoTextShow">后台管理系统</b>
     </div>
 
-    <el-menu-item index="/s">
+    <el-menu-item index="/t">
       <template slot="title">
         <i class="el-icon-house"></i>
         <span slot="title">主页</span>
@@ -22,13 +22,13 @@
     <el-submenu index="2">
       <template slot="title">
         <i class="el-icon-menu"></i>
-        <span slot="title">学生信息管理</span>
+        <span slot="title">教师信息管理</span>
       </template>
-      <el-menu-item index="/s/student">
-        <template slot="title">选课查询</template>
+      <el-menu-item index="/t/teacher">
+        <template slot="title">成绩登分</template>
       </el-menu-item>
-      <el-menu-item index="/s/course">
-        <template slot="title">课表查询</template>
+      <el-menu-item index="/t/myclass">
+        <template slot="title">课程管理</template>
       </el-menu-item>
     </el-submenu>
   </el-menu>
@@ -36,7 +36,7 @@
 
 <script>
 export default {
-  name: "SAside",
+  name: "TAside",
   props:{
     isCollapse:Boolean,
     logoTextShow:Boolean,

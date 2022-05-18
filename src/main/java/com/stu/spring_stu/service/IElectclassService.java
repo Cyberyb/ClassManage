@@ -15,4 +15,8 @@ import org.apache.ibatis.annotations.Param;
 public interface IElectclassService extends IService<Electclass> {
 
     Electclass selectcourse(@Param("stuId") String stuId, @Param("couId") String couId, @Param("teaId") String teaId);
+
+    Boolean deletecourse(String stuId, String couId, String teaId);
+
+    Electclass updategrade(String stuId, String couId, String teaId, String cj);
 }

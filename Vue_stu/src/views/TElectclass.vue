@@ -8,31 +8,13 @@
     </div>
 
     <div style="margin: 10px 0">
+      <el-input style="width: 200px" placeholder="请输入学号" suffix-icon="el-icon-message" class="ml-5" v-model="stuId"></el-input>
       <el-input style="width: 200px" placeholder="请输入课程号" suffix-icon="el-icon-message" class="ml-5" v-model="couId"></el-input>
-      <el-input style="width: 200px" placeholder="请输入教师号" suffix-icon="el-icon-message" class="ml-5" v-model="teaId"></el-input>
       <el-button class="ml-5" type="primary" @click="load">搜索</el-button>
       <el-button class="ml-5" type="warning" @click="reset">清空</el-button>
     </div>
 
-    <div style="margin: 10px 0">
-      <el-button type="primary" @click="stuadd">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
-      <el-popconfirm
-          class="ml-5"
-          confirm-button-text='确定'
-          cancel-button-text='我再想想'
-          icon="el-icon-info"
-          icon-color="red"
-          title="您确定批量删除这些数据吗？"
-          @confirm="delBatch"
-      >
-        <el-button type="danger" slot="reference">批量删除 <i class="el-icon-remove-outline"></i></el-button>
-      </el-popconfirm>
-    </div>
     <el-table :data="tableData" border stripe :header-cell-class-name="'headerBg'" @selection-change="handleSelectionChange">
-      <el-table-column
-          type="selection"
-          width="55">
-      </el-table-column>
       <el-table-column prop="stuId" label="学号" width="140">
       </el-table-column>
       <el-table-column prop="couId" label="课程号" width="120">
@@ -47,7 +29,8 @@
       </el-table-column>
       <el-table-column label="操作"  width="240" align="center">
         <template slot-scope="scope">
-          <el-button type="warning" v-if="scope.row.cj == null" @click="delClass(scope.row)">退课 <i class="el-icon-edit"></i></el-button>
+          <el-button type="primary" v-if="scope.row.cj == null" @click="Edit(scope.row)">登分<i class="el-icon-edit"></i></el-button>
+          <el-button type="danger" v-if="scope.row.cj != null" @click="Edit(scope.row)">改分<i class="el-icon-edit"></i></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -64,41 +47,15 @@
     </div>
 
 
-    <el-dialog title="新增课程信息" :visible.sync="dialogFormVisible" width="30%">
-      <el-form :model="form" size="small ">
-        <el-form-item label="学号" :label-width="formLabelWidth">
-          <el-input v-model="form.couId" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="课程号" :label-width="formLabelWidth">
-          <el-input v-model="form.couId" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="教师号" :label-width="formLabelWidth">
-          <el-input v-model="form.teaId" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="开课学期" :label-width="formLabelWidth">
-          <el-select v-model="form.xq" placeholder="职能">
-            <el-option label="秋季学期" value="秋季学期"></el-option>
-            <el-option label="冬季学期" value="冬季学期"></el-option>
-            <el-option label="春季学期" value="春季学期"></el-option>
-            <el-option label="夏季学期" value="夏季学期"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="开课时间" :label-width="formLabelWidth">
-          <el-select v-model="form.time" placeholder="请选择学院">
-            <el-option label="1-2" value="1-2"></el-option>
-            <el-option label="3-4" value="3-4"></el-option>
-            <el-option label="5-6" value="5-6"></el-option>
-            <el-option label="7-8" value="7-8"></el-option>
-          </el-select>
-        </el-form-item>
+    <el-dialog title="修改分数" :visible.sync="dialogFormVisible" width="30%">
+      <el-form>
         <el-form-item label="成绩" :label-width="formLabelWidth">
           <el-input v-model="form.cj" autocomplete="off"></el-input>
         </el-form-item>
-
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="stu_save">确 定</el-button>
+        <el-button type="primary" @click="gradesave">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -136,10 +93,9 @@ export default {
         params: {
           pageNum: this.pageNum,
           pageSize: this.pageSize,
-          stuId: this.user.stuId,
+          stuId: this.stuId,
           couId: this.couId,
-          teaId: this.teaId,
-          
+          teaId: this.user.teaId,
         }
       }).then(res =>{
         console.log(res)
@@ -150,7 +106,6 @@ export default {
     },
     reset(){ //重置搜索框
       this.stuId = ""
-      this.teaId = ""
       this.couId = ""
       this.load()
     },
@@ -204,8 +159,9 @@ export default {
       this.dialogFormVisible = true
       this.form = {}
     },
-    stu_save(){
-      this.request.post("http://localhost:9090/electclass", this.form).then(res => {
+    gradesave(){
+      console.log(this.form)
+      this.request.post("http://localhost:9090/electclass/updategrade/"+ this.form.stuId + "/" + this.form.couId + "/" + this.form.teaId + "/" + this.form.cj).then(res => {
         if (res) {
           this.$message.success("保存成功")
           this.dialogFormVisible = false
