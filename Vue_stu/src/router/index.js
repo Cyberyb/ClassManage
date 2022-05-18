@@ -50,6 +50,34 @@ const routes = [
     ]
   },
   {
+    path: '/s',
+    name: 'SManage',
+    redirect: '/s/home',
+    component: () => import('../views/SManage.vue'),
+    children: [
+      {
+        path: 'home',
+        name:'stuHome',
+        component: () => import('../views/Home.vue')
+      },
+      {
+        path: 'student',
+        name: 'Studentselectclass',
+        component: () => import('../views/SOpenclass.vue'),
+      },
+      {
+        path: 'course',
+        name: 'courseyouselected',
+        component: () => import('../views/SElectclass.vue'),
+      },
+    ]
+  },
+  {
+    path:'/login',
+    name:'Login',
+    component: () => import('../views/Login.vue')
+  },
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting

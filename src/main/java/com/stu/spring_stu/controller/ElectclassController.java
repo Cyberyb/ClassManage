@@ -35,6 +35,13 @@ public class ElectclassController {
         return electclassService.saveOrUpdate(electclass);
     }
 
+    @PostMapping("/selectcourse/{stuId}/{couId}/{teaId}")
+    public Electclass selectcourse(@PathVariable String stuId,
+                             @PathVariable String couId,
+                             @PathVariable String teaId){
+        return electclassService.selectcourse(stuId,couId,teaId);
+    }
+
     @GetMapping
     public List<Electclass> findAll() {
         return electclassService.list();

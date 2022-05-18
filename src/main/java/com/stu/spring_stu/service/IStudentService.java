@@ -1,6 +1,7 @@
 package com.stu.spring_stu.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.stu.spring_stu.controller.dto.UserDTO;
 import com.stu.spring_stu.entity.Student;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.apache.ibatis.annotations.Param;
@@ -16,4 +17,6 @@ import org.apache.ibatis.annotations.Param;
 public interface IStudentService extends IService<Student> {
 
     Page<Student> findPage(Page<Student> page, @Param("stuId") String stuId,@Param("name") String name,@Param("dname") String dname);
+
+    Student login(UserDTO userDTO);
 }

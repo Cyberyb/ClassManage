@@ -3,11 +3,12 @@
     <div style="flex: 1; font-size: 20px">
       <span :class="collapseBtnClass" style="cursor: pointer" @click="collapse"></span>
     </div>
-    <el-dropdown style="width: 70px; cursor: pointer">
-      <span>{{username}}</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
-      <el-dropdown-menu slot="dropdown" >
-        <el-dropdown-item style="font-size: 14px; padding: 5px 0">个人信息</el-dropdown-item>
-        <el-dropdown-item style="font-size: 14px; padding: 5px 0">退出</el-dropdown-item>
+    <el-dropdown style="width: 150px; cursor: pointer">
+      <span>您好！{{myname}}</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
+      <el-dropdown-menu slot="dropdown" style="width: 100px; text-align:center">
+        <el-dropdown-item style="font-size: 14px; padding: 5px 0">
+          <router-link to="/login" style="text-decoration: none">退出</router-link>
+        </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -22,8 +23,13 @@ export default {
   },
   data(){
     return{
-      username:"杨博浩",
+      user:localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):{},
+      radio:localStorage.getItem("radio")?JSON.parse(localStorage.getItem("radio")):{},
+      myname: "",
     }
+  },
+  created() {
+    this.myname = this.radio == "1"? this.user.tname : this.user.name
   }
 }
 </script>

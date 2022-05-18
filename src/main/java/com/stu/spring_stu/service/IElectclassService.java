@@ -2,6 +2,7 @@ package com.stu.spring_stu.service;
 
 import com.stu.spring_stu.entity.Electclass;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IElectclassService extends IService<Electclass> {
 
+    Electclass selectcourse(@Param("stuId") String stuId, @Param("couId") String couId, @Param("teaId") String teaId);
 }

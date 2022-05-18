@@ -3,6 +3,7 @@ package com.stu.spring_stu.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.stu.spring_stu.controller.dto.UserDTO;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
@@ -28,7 +29,15 @@ public class StudentController {
     @Resource
     private IStudentService studentService;
 
-
+    @PostMapping("/login")
+    public Student login(@RequestBody UserDTO userDTO){   //@RequestBody用于把前端的json对象转化为java对象
+        String username = userDTO.getUsername();
+        String passwd = userDTO.getPasswd();
+//        if(StringUtils.isBlank(username) || StringUtils.isBlank(passwd)){
+//            return false;
+//        }
+        return studentService.login(userDTO);
+    }
     @PostMapping
     public boolean save(@RequestBody Student student){
         return studentService.saveOrUpdate(student);
