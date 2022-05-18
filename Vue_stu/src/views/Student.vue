@@ -10,7 +10,7 @@
     <div style="margin: 10px 0">
       <el-input style="width: 200px" placeholder="请输入学号" suffix-icon="el-icon-search" v-model="stuId"></el-input>
       <el-input style="width: 200px" placeholder="请输入姓名" suffix-icon="el-icon-message" class="ml-5" v-model="name"></el-input>
-      <el-input style="width: 200px" placeholder="请输入学院" suffix-icon="el-icon-position" class="ml-5" v-model="depId"></el-input>
+      <el-input style="width: 200px" placeholder="请输入学院" suffix-icon="el-icon-position" class="ml-5" v-model="dname"></el-input>
       <el-button class="ml-5" type="primary" @click="load">搜索</el-button>
       <el-button class="ml-5" type="warning" @click="reset">清空</el-button>
     </div>
@@ -41,7 +41,7 @@
       </el-table-column>
       <el-table-column prop="sex" label="性别" width="120">
       </el-table-column>
-      <el-table-column prop="depId" label="院系" width="120">
+      <el-table-column prop="dname" label="院系" width="120">
       </el-table-column>
       <el-table-column prop="username" label="账号" width="120">
       </el-table-column>
@@ -92,11 +92,12 @@
           </el-select>
         </el-form-item>
         <el-form-item label="学院" :label-width="formLabelWidth">
-          <el-select v-model="form.dId" placeholder="请选择学院">
-            <el-option label="计算机学院" value="计算机学院"></el-option>
-            <el-option label="通信学院" value="通信学院"></el-option>
-            <el-option label="文学院" value="文学院"></el-option>
-            <el-option label="理学院" value="理学院"></el-option>
+          <el-select v-model="form.depId" placeholder="请选择学院">
+            <el-option label="计算机学院" value="1"></el-option>
+            <el-option label="理学院" value="2"></el-option>
+            <el-option label="通信学院" value="3"></el-option>
+            <el-option label="机电学院" value="4"></el-option>
+            <el-option label="文学院" value="5"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="账号" :label-width="formLabelWidth">
@@ -128,6 +129,7 @@ export default {
       name: "",
       sex: "",
       depId: "",
+      dname: "",
       username: "",
       passwd: "",
       multipleSelection: [],
@@ -148,7 +150,8 @@ export default {
           pageSize: this.pageSize,
           stuId: this.stuId,
           name: this.name,
-          depId: this.depId
+          depId: this.depId,
+          dname: this.dname,
         }
       }).then(res =>{
         console.log(res)

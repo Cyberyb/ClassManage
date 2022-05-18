@@ -60,10 +60,10 @@ public class TeacherController {
                                   @RequestParam Integer pageSize,
                                   @RequestParam(defaultValue = "") String teaId,
                                   @RequestParam(defaultValue = "") String tname) {
-        QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like(Strings.isNotEmpty(teaId),"tea_id",teaId);
-        queryWrapper.like(Strings.isNotEmpty(tname),"tname", tname);
-        return teacherService.page(new Page<>(pageNum, pageSize),queryWrapper);
+//        QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.like(Strings.isNotEmpty(teaId),"tea_id",teaId);
+//        queryWrapper.like(Strings.isNotEmpty(tname),"tname", tname);
+        return teacherService.findPage(new Page<>(pageNum, pageSize),teaId,tname);
     }
 
 }

@@ -2,4 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stu.spring_stu.mapper.StudentMapper">
 
+    <select id="findPage" resultType="com.stu.spring_stu.entity.Student">
+        select student.*,department.dname as dname from student
+        left join department
+        on student.dep_id = department.dep_id
+        <where>
+            and stu_id like concat('%',#{stuId},'%')
+            <if test="name != null and name != ''">
+            and name like concat('%',#{name},'%')
+            </if>
+            <if test="dname != null and dname != ''">
+            and department.dname like concat('%',#{dname},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

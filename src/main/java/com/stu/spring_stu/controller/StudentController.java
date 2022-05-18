@@ -59,15 +59,16 @@ public class StudentController {
                                   @RequestParam Integer pageSize,
                                   @RequestParam(defaultValue = "") String stuId,
                                   @RequestParam(defaultValue = "") String name,
-                                  @RequestParam(defaultValue = "") String depId) {
-        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+                                  @RequestParam(defaultValue = "") String dname
+    ) {
+//        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
 //        if(stu_id != null){
 //            queryWrapper.like("stu_id",stu_id);
 //        }
-        queryWrapper.like(Strings.isNotEmpty(stuId),"stu_id",stuId);
-        queryWrapper.like(Strings.isNotEmpty(name),"name", name);
-        queryWrapper.like(Strings.isNotEmpty(depId),"dep_id",depId);
-        return studentService.page(new Page<>(pageNum, pageSize),queryWrapper);
+//        queryWrapper.like(Strings.isNotEmpty(stuId),"stu_id",stuId);
+//        queryWrapper.like(Strings.isNotEmpty(name),"name", name);
+//        queryWrapper.like(Strings.isNotEmpty(depId),"dep_id",depId);
+        return studentService.findPage(new Page<>(pageNum, pageSize),stuId,name,dname);
     }
 
 }

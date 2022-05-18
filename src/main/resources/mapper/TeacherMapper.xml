@@ -2,4 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stu.spring_stu.mapper.TeacherMapper">
 
+    <select id="findPage" resultType="com.stu.spring_stu.entity.Teacher">
+        select teacher.*,department.dname as dname from teacher
+        left join department
+        on teacher.dep_id = department.dep_id
+        <where>
+            and tea_id like concat('%',#{teaId},'%')
+            <if test="tname != null and tname != ''">
+                and tname like concat('%',#{tname},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

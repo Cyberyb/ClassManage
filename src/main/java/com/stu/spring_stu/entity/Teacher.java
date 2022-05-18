@@ -2,6 +2,7 @@ package com.stu.spring_stu.entity;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -42,5 +43,6 @@ public class Teacher implements Serializable {
     @ApiModelProperty("角色（教师/管理员）")
     private String role;
 
-
+    @TableField(exist = false)
+    private String dname;
 }

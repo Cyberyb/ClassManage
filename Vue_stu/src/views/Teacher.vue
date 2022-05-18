@@ -37,7 +37,7 @@
       </el-table-column>
       <el-table-column prop="tname" label="教师名" width="120">
       </el-table-column>
-      <el-table-column prop="depId" label="所在院系" width="120">
+      <el-table-column prop="dname" label="所在院系" width="120">
       </el-table-column>
       <el-table-column prop="username" label="账号名" width="120">
       </el-table-column>
@@ -100,7 +100,7 @@
           <el-input v-model="form.username" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" :label-width="formLabelWidth">
-          <el-input v-model="form.password" autocomplete="off"></el-input>
+          <el-input v-model="form.passwd" autocomplete="off"></el-input>
         </el-form-item>
 
       </el-form>
@@ -123,10 +123,11 @@ export default {
       pageSize: 10,
       teaId: "",
       username:"",
-      password: "",
+      passwd: "",
       role: "",
       tname: "",
       depId: "",
+      dname:"",
       multipleSelection: [],
       dialogFormVisible: false,
       form: {},

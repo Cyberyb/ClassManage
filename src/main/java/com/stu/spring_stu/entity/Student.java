@@ -15,7 +15,7 @@ import lombok.Setter;
  * </p>
  *
  * @author ybh
- * @since 2022-05-17
+ * @since 2022-05-18
  */
 @Getter
 @Setter
@@ -35,7 +35,6 @@ public class Student implements Serializable {
     private String sex;
 
     @ApiModelProperty("院系号")
-    @TableField(value = "dep_id")
     private Integer depId;
 
     @ApiModelProperty("账号")
@@ -44,5 +43,7 @@ public class Student implements Serializable {
     @ApiModelProperty("密码")
     private Integer passwd;
 
+    @TableField(exist = false)
+    private String dname;
 
 }

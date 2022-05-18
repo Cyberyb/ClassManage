@@ -1,7 +1,9 @@
 package com.stu.spring_stu.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stu.spring_stu.entity.Teacher;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITeacherService extends IService<Teacher> {
 
+    Page<Teacher> findPage(Page<Teacher> page, @Param("teaID") String teaId,@Param("tname") String tname);
 }
