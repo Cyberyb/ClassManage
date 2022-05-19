@@ -8,16 +8,10 @@
         delete from electclass where stu_id = #{stuId} and cou_id = #{couId} and tea_id = #{teaId}
     </select>
     <select id="selectcourse">
-        insert into electclass(stu_id,cou_id,tea_id,xq,time) values(#{stuId},
-                                                                       #{couId},
-                                                                       #{teaId},
-                                                                       (select xq from openclass
-                                                                           where cou_id = #{couId}
-                                                                           and tea_id = #{teaId}),
-                                                                       (select time from openclass
-                                                                        where cou_id = #{couId}
-                                                                          and tea_id = #{teaId})
-                                                                       )
+        insert into electclass(stu_id,cou_id,tea_id) values(#{stuId},
+                                                                    #{couId},
+                                                                    #{teaId}
+            )
     </select>
     <select id="findPage" resultType="com.stu.spring_stu.entity.Electclass">
         select electclass.*,student.name as name,course.cname as cname,teacher.tname as tname, openclass.xq as xq, openclass.time as time  from electclass
