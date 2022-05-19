@@ -8,7 +8,7 @@ const routes = [
   {
     path: '/',
     name: 'Manage',
-    redirect: '/home',
+    redirect: '/login',
     component: () => import('../views/Manage.vue'),
     children: [
       {

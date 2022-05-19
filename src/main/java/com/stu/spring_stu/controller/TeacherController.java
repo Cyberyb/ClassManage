@@ -51,9 +51,9 @@ public class TeacherController {
         return teacherService.list();
     }
 
-    @DeleteMapping("/{id}")
-    public Boolean delete(@PathVariable Integer id){
-        return teacherService.removeById(id);
+    @DeleteMapping("/{teaId}")
+    public Boolean delete(@PathVariable String teaId){
+        return teacherService.removeById(teaId);
     }
 
     @GetMapping("/{id}")

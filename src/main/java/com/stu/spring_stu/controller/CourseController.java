@@ -41,12 +41,12 @@ public class CourseController {
     }
 
     @DeleteMapping("/{couId}")
-    public Boolean delete(@PathVariable Integer couId){
+    public Boolean delete(@PathVariable String couId){
         return courseService.removeById(couId);
     }
 
     @GetMapping("/{couId}")
-    public Course findOne(@PathVariable Integer couId) {
+    public Course findOne(@PathVariable String couId) {
         return courseService.getById(couId);
     }
 

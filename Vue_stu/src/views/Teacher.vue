@@ -2,7 +2,7 @@
   <div>
     <div style="margin-bottom: 30px">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item>教师管理</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -73,7 +73,7 @@
     </div>
 
 
-    <el-dialog title="新增课程信息" :visible.sync="dialogFormVisible" width="30%">
+    <el-dialog title="新增教师信息" :visible.sync="dialogFormVisible" width="30%">
       <el-form :model="form" size="small ">
         <el-form-item label="教师号" :label-width="formLabelWidth">
           <el-input v-model="form.teaId" autocomplete="off"></el-input>

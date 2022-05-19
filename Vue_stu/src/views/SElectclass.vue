@@ -2,7 +2,7 @@
   <div>
     <div style="margin-bottom: 30px">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/s' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item>选课表管理</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -14,25 +14,7 @@
       <el-button class="ml-5" type="warning" @click="reset">清空</el-button>
     </div>
 
-    <div style="margin: 10px 0">
-      <el-button type="primary" @click="stuadd">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
-      <el-popconfirm
-          class="ml-5"
-          confirm-button-text='确定'
-          cancel-button-text='我再想想'
-          icon="el-icon-info"
-          icon-color="red"
-          title="您确定批量删除这些数据吗？"
-          @confirm="delBatch"
-      >
-        <el-button type="danger" slot="reference">批量删除 <i class="el-icon-remove-outline"></i></el-button>
-      </el-popconfirm>
-    </div>
     <el-table :data="tableData" border stripe :header-cell-class-name="'headerBg'" @selection-change="handleSelectionChange">
-      <el-table-column
-          type="selection"
-          width="55">
-      </el-table-column>
       <el-table-column prop="stuId" label="学号" width="140">
       </el-table-column>
       <el-table-column prop="couId" label="课程号" width="120">

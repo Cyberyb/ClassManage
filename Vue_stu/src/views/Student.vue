@@ -2,7 +2,7 @@
   <div>
     <div style="margin-bottom: 30px">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item>用户管理</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -93,11 +93,12 @@
         </el-form-item>
         <el-form-item label="学院" :label-width="formLabelWidth">
           <el-select v-model="form.depId" placeholder="请选择学院">
-            <el-option label="计算机学院" value="1"></el-option>
-            <el-option label="理学院" value="2"></el-option>
-            <el-option label="通信学院" value="3"></el-option>
-            <el-option label="机电学院" value="4"></el-option>
-            <el-option label="文学院" value="5"></el-option>
+            <el-option
+                v-for="item in depoptions"
+                :key="item.depId"
+                :label="item.dname"
+                :value="item.depId">
+            </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="账号" :label-width="formLabelWidth">
@@ -136,11 +137,13 @@ export default {
       msg: "hello",
       dialogFormVisible: false,
       form: {},
-      formLabelWidth: "80px"
+      formLabelWidth: "80px",
+      depoptions:[]
     }
   },
   created() {
     this.load()
+    this.loaddep()
   },
   methods:{
     load(){
@@ -158,6 +161,12 @@ export default {
 
         this.tableData = res.records
         this.total = res.total
+      })
+    },
+    loaddep(){
+      this.request.get("http://localhost:9090/department").then(res =>{
+        console.log(res)
+        this.depoptions = res
       })
     },
     reset(){ //重置搜索框

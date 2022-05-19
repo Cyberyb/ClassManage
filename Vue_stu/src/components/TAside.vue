@@ -27,9 +27,9 @@
       <el-menu-item index="/t/teacher">
         <template slot="title">成绩登分</template>
       </el-menu-item>
-      <el-menu-item index="/t/myclass">
-        <template slot="title">课程管理</template>
-      </el-menu-item>
+<!--      <el-menu-item index="/t/myclass">-->
+<!--        <template slot="title">课程管理</template>-->
+<!--      </el-menu-item>-->
     </el-submenu>
   </el-menu>
 </template>

@@ -22,7 +22,7 @@
     <el-submenu index="2">
       <template slot="title">
         <i class="el-icon-menu"></i>
-        <span slot="title">用户管理</span>
+        <span slot="title">功能模块</span>
       </template>
       <el-menu-item index="/student">
         <template slot="title">学生信息管理</template>

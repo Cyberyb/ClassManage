@@ -58,7 +58,7 @@ export default {
               localStorage.setItem("user",JSON.stringify(res))
               localStorage.setItem("radio",this.radio)
               if(this.radio ===  "1" && res.role === "管理员"){
-                this.$router.push("/")
+                this.$router.push("/home")
               }
               else if(this.radio === "1" && res.role === "教师"){
                 this.$router.push("/t")
