@@ -28,9 +28,15 @@ public class Openclass implements Serializable {
     @TableId(value = "cou_id")
       private String couId;
 
+    @TableField(exist = false)
+        private String cname;
+
     @ApiModelProperty("开课教师号")
     @TableField(value = "tea_Id")
       private String teaId;
+
+    @TableField(exist = false)
+    private String tname;
 
     @ApiModelProperty("开课学期(秋、冬、春)")
     private String xq;

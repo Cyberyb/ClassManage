@@ -1,5 +1,6 @@
 package com.stu.spring_stu.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stu.spring_stu.entity.Electclass;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.apache.ibatis.annotations.Param;
@@ -19,4 +20,6 @@ public interface IElectclassService extends IService<Electclass> {
     Boolean deletecourse(String stuId, String couId, String teaId);
 
     Electclass updategrade(String stuId, String couId, String teaId, String cj);
+
+    Page<Electclass> findPage(Page<Electclass> page, String stuId, String couId, String teaId);
 }

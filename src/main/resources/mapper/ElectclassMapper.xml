@@ -19,4 +19,23 @@
                                                                           and tea_id = #{teaId})
                                                                        )
     </select>
+    <select id="findPage" resultType="com.stu.spring_stu.entity.Electclass">
+        select electclass.*,student.name as name,course.cname as cname,teacher.tname as tname, openclass.xq as xq, openclass.time as time  from electclass
+        left join student
+        on student.stu_id = electclass.stu_id
+        left join course
+        on course.cou_id = electclass.cou_id
+        left join openclass
+        on openclass.cou_id = electclass.cou_id
+        left join teacher
+        on electclass.tea_id = teacher.tea_id
+        <where>
+            electclass.stu_id like concat('%',#{stuId},'%')
+            and electclass.cou_id like concat('%',#{couId},'%')
+            and electclass.tea_id like concat('%',#{teaId},'%')
+<!--            <if test="xq != null and xq != ''">-->
+<!--                and xq = #{xq}-->
+<!--            </if>-->
+        </where>
+    </select>
 </mapper>

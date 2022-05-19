@@ -61,6 +61,14 @@ public class TeacherController {
         return teacherService.getById(id);
     }
 
+    //用于在课程表中开课的时候选择对应学院的教师名
+    @GetMapping("/opencourse/{depId}")
+    public List<Teacher> findteabydep(@PathVariable Integer depId) {
+        QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("dep_id",depId);
+        return teacherService.list(queryWrapper);
+    }
+
     @PostMapping("/del/batch")
     public boolean deleteBatch(@RequestBody List<Integer> ids) { // [1,2,3]
         return teacherService.removeByIds(ids);

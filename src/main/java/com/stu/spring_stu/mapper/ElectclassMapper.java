@@ -1,5 +1,6 @@
 package com.stu.spring_stu.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stu.spring_stu.entity.Electclass;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.stu.spring_stu.entity.Openclass;
@@ -20,4 +21,6 @@ public interface ElectclassMapper extends BaseMapper<Electclass> {
     void selectcourse(String stuId, String couId, String teaId);
 
     void updategrade(String stuId, String couId, String teaId, String cj);
+
+    Page<Electclass> findPage(Page<Electclass> page, String stuId, String couId, String teaId);
 }

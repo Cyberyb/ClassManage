@@ -1,5 +1,6 @@
 package com.stu.spring_stu.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stu.spring_stu.entity.Electclass;
 import com.stu.spring_stu.mapper.ElectclassMapper;
 import com.stu.spring_stu.service.IElectclassService;
@@ -43,5 +44,10 @@ public class ElectclassServiceImpl extends ServiceImpl<ElectclassMapper, Electcl
         electclassMapper.updategrade(stuId,couId,teaId,cj);
         Electclass electclass = new Electclass();
         return electclass;
+    }
+
+    @Override
+    public Page<Electclass> findPage(Page<Electclass> page, String stuId, String couId, String teaId) {
+        return electclassMapper.findPage(page,stuId,couId,teaId);
     }
 }

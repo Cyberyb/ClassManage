@@ -34,11 +34,17 @@
           type="selection"
           width="55">
       </el-table-column>
-      <el-table-column prop="stuId" label="学号" width="140">
+      <el-table-column prop="stuId" label="学号" width="120">
+      </el-table-column>
+      <el-table-column prop="name" label="学生姓名" width="140">
       </el-table-column>
       <el-table-column prop="couId" label="课程号" width="120">
       </el-table-column>
-      <el-table-column prop="teaId" label="教师号" width="140">
+      <el-table-column prop="cname" label="课程名" width="140">
+      </el-table-column>
+      <el-table-column prop="teaId" label="教师号" width="120">
+      </el-table-column>
+      <el-table-column prop="tname" label="教师名" width="140">
       </el-table-column>
       <el-table-column prop="xq" label="开课学期" width="120">
       </el-table-column>
@@ -48,7 +54,6 @@
       </el-table-column>
       <el-table-column label="操作"  width="240" align="center">
         <template slot-scope="scope">
-          <el-button type="success" @click="Edit(scope.row)">编辑 <i class="el-icon-edit"></i></el-button>
           <el-popconfirm
               class = "ml-5"
               confirm-button-text='好的'
@@ -79,32 +84,13 @@
     <el-dialog title="新增课程信息" :visible.sync="dialogFormVisible" width="30%">
       <el-form :model="form" size="small ">
         <el-form-item label="学号" :label-width="formLabelWidth">
-          <el-input v-model="form.couId" autocomplete="off"></el-input>
+          <el-input v-model="form.stuId" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="课程号" :label-width="formLabelWidth">
           <el-input v-model="form.couId" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="教师号" :label-width="formLabelWidth">
           <el-input v-model="form.teaId" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="开课学期" :label-width="formLabelWidth">
-          <el-select v-model="form.xq" placeholder="职能">
-            <el-option label="秋季学期" value="秋季学期"></el-option>
-            <el-option label="冬季学期" value="冬季学期"></el-option>
-            <el-option label="春季学期" value="春季学期"></el-option>
-            <el-option label="夏季学期" value="夏季学期"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="开课时间" :label-width="formLabelWidth">
-          <el-select v-model="form.time" placeholder="请选择学院">
-            <el-option label="1-2" value="1-2"></el-option>
-            <el-option label="3-4" value="3-4"></el-option>
-            <el-option label="5-6" value="5-6"></el-option>
-            <el-option label="7-8" value="7-8"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="成绩" :label-width="formLabelWidth">
-          <el-input v-model="form.cj" autocomplete="off"></el-input>
         </el-form-item>
 
       </el-form>
@@ -126,8 +112,11 @@ export default {
       pageNum: 1,
       pageSize: 10,
       stuId: "",
+      name: "",
       teaId: "",
+      tname: "",
       couId: "",
+      cname: "",
       xq:"",  //课程学期
       time:"",  //课程时间
       cj: "",  //成绩

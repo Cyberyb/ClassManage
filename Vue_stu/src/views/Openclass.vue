@@ -10,12 +10,19 @@
     <div style="margin: 10px 0">
       <el-input style="width: 200px" placeholder="请输入课程号" suffix-icon="el-icon-search" v-model="couId"></el-input>
       <el-input style="width: 200px" placeholder="请输入教师号" suffix-icon="el-icon-message" class="ml-5" v-model="teaId"></el-input>
+      <el-select v-model="xq" placeholder="请选择学期" clearable class="ml-5">
+        <el-option label="秋季学期" value="秋季学期"></el-option>
+        <el-option label="冬季学期" value="冬季学期"></el-option>
+        <el-option label="春季学期" value="春季学期"></el-option>
+        <el-option label="夏季学期" value="夏季学期"></el-option>
+      </el-select>
+
       <el-button class="ml-5" type="primary" @click="load">搜索</el-button>
       <el-button class="ml-5" type="warning" @click="reset">清空</el-button>
     </div>
 
     <div style="margin: 10px 0">
-      <el-button type="primary" @click="stuadd">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
+<!--      <el-button type="primary" @click="stuadd">新增 <i class="el-icon-circle-plus-outline"></i></el-button>-->
       <el-popconfirm
           class="ml-5"
           confirm-button-text='确定'
@@ -35,19 +42,23 @@
       </el-table-column>
       <el-table-column prop="couId" label="课程号" width="140">
       </el-table-column>
+      <el-table-column prop="cname" label="课程名称" width="140">
+      </el-table-column>
       <el-table-column prop="teaId" label="教师号" width="120">
+      </el-table-column>
+      <el-table-column prop="tname" label="教师名称" width="120">
       </el-table-column>
       <el-table-column prop="xq" label="开课学期" width="120">
       </el-table-column>
       <el-table-column prop="time" label="开课时间" width="120">
       </el-table-column>
-      <el-table-column prop="stunum" label="课程容量" width="120">
+      <el-table-column prop="stunum" label="已选人数" width="120">
       </el-table-column>
       <el-table-column prop="uplim" label="容量上限">
       </el-table-column>
       <el-table-column label="操作"  width="240" align="center">
         <template slot-scope="scope">
-          <el-button type="success" @click="Edit(scope.row)">编辑 <i class="el-icon-edit"></i></el-button>
+<!--          <el-button type="success" @click="Edit(scope.row)">编辑 <i class="el-icon-edit"></i></el-button>-->
           <el-popconfirm
               class = "ml-5"
               confirm-button-text='好的'
@@ -120,6 +131,8 @@ export default {
       pageSize: 10,
       teaId: "",
       couId: "",
+      cname:"",
+      tname:"",
       xq:"",  //课程学期
       time:"",  //课程时间
       stunum:"", //选课人数
@@ -141,6 +154,9 @@ export default {
           pageSize: this.pageSize,
           couId: this.couId,
           teaId: this.teaId,
+          // cname:this.cname,
+          // tname:this.tname,
+          xq:this.xq
         }
       }).then(res =>{
         console.log(res)
@@ -152,6 +168,7 @@ export default {
     reset(){ //重置搜索框
       this.teaId = ""
       this.couId = ""
+      this.xq = ""
       this.load()
     },
     Edit(row){

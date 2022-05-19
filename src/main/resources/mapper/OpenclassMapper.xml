@@ -2,4 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stu.spring_stu.mapper.OpenclassMapper">
 
+    <insert id="openclass">
+        insert into openclass value (#{couId},#{teaId},#{xq},#{time},0,#{uplim})
+    </insert>
+    <select id="findPage" resultType="com.stu.spring_stu.entity.Openclass">
+        select openclass.*,course.cname as cname,teacher.tname as tname from openclass
+        left join course
+        on openclass.cou_id = course.cou_id
+        left join teacher
+        on openclass.tea_id = teacher.tea_id
+        <where>
+            openclass.cou_id like concat('%',#{couId},'%')
+            and openclass.tea_id like concat('%',#{teaId},'%')
+            <if test="xq != null and xq != ''">
+                and xq = #{xq}
+            </if>
+        </where>
+    </select>
 </mapper>

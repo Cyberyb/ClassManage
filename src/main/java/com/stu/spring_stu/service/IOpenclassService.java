@@ -1,5 +1,6 @@
 package com.stu.spring_stu.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stu.spring_stu.entity.Openclass;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IOpenclassService extends IService<Openclass> {
 
+    boolean opencouse(String couId, String teaId, String xq, String time, Integer uplim);
+
+    Page<Openclass> findPage(Page<Openclass> page, String couId, String teaId,String xq);
 }

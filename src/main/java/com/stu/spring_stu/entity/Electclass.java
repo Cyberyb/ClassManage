@@ -28,18 +28,29 @@ public class Electclass implements Serializable {
     @TableId(value = "stu_id")
       private Integer stuId;
 
+    @TableField(exist = false)
+    private String name;
+
     @ApiModelProperty("课程号")
     @TableField(value = "cou_id")
       private String couId;
+
+    @TableField(exist = false)
+    private String cname;
 
     @ApiModelProperty("教师号")
     @TableField(value = "tea_id")
       private String teaId;
 
+    @TableField(exist = false)
+    private String tname;
+
     @ApiModelProperty("学期")
+    @TableField(exist = false)
     private String xq;
 
     @ApiModelProperty("课程时间")
+    @TableField(exist = false)
     private String time;
 
     @ApiModelProperty("成绩")

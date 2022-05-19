@@ -35,6 +35,15 @@ public class OpenclassController {
         return openclassService.saveOrUpdate(openclass);
     }
 
+    @PostMapping("/{couId}/{teaId}/{xq}/{time}/{uplim}")
+    public boolean opencourse(@PathVariable String couId,
+                              @PathVariable String teaId,
+                              @PathVariable String xq,
+                              @PathVariable String time,
+                              @PathVariable Integer uplim){
+        return openclassService.opencouse(couId,teaId,xq,time,uplim);
+    }
+
     @GetMapping
     public List<Openclass> findAll() {
         return openclassService.list();
@@ -59,11 +68,12 @@ public class OpenclassController {
     public Page<Openclass> findPage(@RequestParam Integer pageNum,
                                     @RequestParam Integer pageSize,
                                     @RequestParam(defaultValue = "") String couId,
-                                    @RequestParam(defaultValue = "") String teaId) {
-        QueryWrapper<Openclass> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like(Strings.isNotEmpty(couId),"cou_id",couId);
-        queryWrapper.like(Strings.isNotEmpty(teaId),"tea_id",teaId);
-        return openclassService.page(new Page<>(pageNum, pageSize),queryWrapper);
+                                    @RequestParam(defaultValue = "") String teaId,
+                                    @RequestParam(defaultValue = "") String xq) {
+//        QueryWrapper<Openclass> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.like(Strings.isNotEmpty(couId),"cou_id",couId);
+//        queryWrapper.like(Strings.isNotEmpty(teaId),"tea_id",teaId);
+        return openclassService.findPage(new Page<>(pageNum, pageSize),couId,teaId,xq);
     }
 
 }

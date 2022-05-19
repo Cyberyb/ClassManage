@@ -10,12 +10,13 @@
     <div style="margin: 10px 0">
       <el-input style="width: 200px" placeholder="请输入课程号" suffix-icon="el-icon-search" v-model="couId"></el-input>
       <el-input style="width: 200px" placeholder="请输入课程名" suffix-icon="el-icon-message" class="ml-5" v-model="cname"></el-input>
+      <el-input style="width: 200px" placeholder="请输入学院名" suffix-icon="el-icon-message" class="ml-5" v-model="dname"></el-input>
       <el-button class="ml-5" type="primary" @click="load">搜索</el-button>
       <el-button class="ml-5" type="warning" @click="reset">清空</el-button>
     </div>
 
     <div style="margin: 10px 0">
-      <el-button type="primary" @click="stuadd">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
+      <el-button type="primary" @click="couadd">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
       <el-popconfirm
           class="ml-5"
           confirm-button-text='确定'
@@ -39,11 +40,12 @@
       </el-table-column>
       <el-table-column prop="credit" label="学分" width="120">
       </el-table-column>
-      <el-table-column prop="depId" label="院系">
+      <el-table-column prop="dname" label="院系">
       </el-table-column>
-      <el-table-column label="操作"  width="240" align="center">
+      <el-table-column label="操作"  width="350" align="center">
         <template slot-scope="scope">
-          <el-button type="success" @click="Edit(scope.row)">编辑 <i class="el-icon-edit"></i></el-button>
+          <el-button type="primary" @click="opencourse(scope.row)">开课 <i class="el-icon-circle-plus-outline"></i></el-button>
+          <el-button type="success" @click="editcourse(scope.row)">编辑 <i class="el-icon-edit"></i></el-button>
           <el-popconfirm
               class = "ml-5"
               confirm-button-text='好的'
@@ -70,13 +72,13 @@
       </el-pagination>
     </div>
 
-
+<!--添加新课程的对话框-->
     <el-dialog title="新增课程信息" :visible.sync="dialogFormVisible" width="30%">
       <el-form :model="form" size="small ">
-        <el-form-item label="学号" :label-width="formLabelWidth">
+        <el-form-item label="课号" :label-width="formLabelWidth">
           <el-input v-model="form.couId" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="姓名" :label-width="formLabelWidth">
+        <el-form-item label="课程名" :label-width="formLabelWidth">
           <el-input v-model="form.cname" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="学分" :label-width="formLabelWidth">
@@ -84,18 +86,67 @@
         </el-form-item>
         <el-form-item label="学院" :label-width="formLabelWidth">
           <el-select v-model="form.depId" placeholder="请选择学院">
-            <el-option label="计算机学院" value="1"></el-option>
-            <el-option label="理学院" value="2"></el-option>
-            <el-option label="通信学院" value="3"></el-option>
-            <el-option label="机电学院" value="4"></el-option>
-            <el-option label="文学院" value="5"></el-option>
+            <el-option
+                v-for="item in depoptions"
+                :key="item.depId"
+                :label="item.dname"
+                :value="item.depId">
+            </el-option>
           </el-select>
         </el-form-item>
 
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="stu_save">确 定</el-button>
+        <el-button type="primary" @click="cou_save">确 定</el-button>
+      </div>
+    </el-dialog>
+
+<!--开课的对话框-->
+    <el-dialog title="新增课程信息" :visible.sync="dialogForm2Visible" width="30%">
+      <el-form :model="form" size="small ">
+        <el-form-item label="教授教师" :label-width="formLabelWidth">
+          <el-select v-model="formopen.teaId" placeholder="请选择学院">
+            <el-option
+                v-for="item in teaoptions"
+                v-if="item.role != '管理员'"
+                :key="item.teaId"
+                :label="item.tname"
+                :value="item.teaId">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="开课学期" :label-width="formLabelWidth">
+          <el-select v-model="formopen.xq" placeholder="请选择学期">
+            <el-option label="秋季学期" value="秋季学期"></el-option>
+            <el-option label="冬季学期" value="冬季学期"></el-option>
+            <el-option label="春季学期" value="春季学期"></el-option>
+            <el-option label="夏季学期" value="夏季学期"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="开课日期" :label-width="formLabelWidth">
+          <el-select v-model="formopen.ftime" placeholder="日期">
+            <el-option label="星期一" value="一"></el-option>
+            <el-option label="星期二" value="二"></el-option>
+            <el-option label="星期三" value="三"></el-option>
+            <el-option label="星期四" value="四"></el-option>
+            <el-option label="星期五" value="五"></el-option>
+          </el-select>
+          <el-select v-model="formopen.ltime" placeholder="时间">
+            <el-option label="1-2" value="1-2"></el-option>
+            <el-option label="3-4" value="3-4"></el-option>
+            <el-option label="5-6" value="5-6"></el-option>
+            <el-option label="7-8" value="7-8"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="课程容量" label-width="formLabelWidth">
+          <el-input v-model="formopen.uplim" autocomplete="off"></el-input>
+        </el-form-item>
+
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogForm2Visible = false">取 消</el-button>
+        <el-button type="primary" @click="opencourse_save">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -114,14 +165,22 @@ export default {
       credit: "",
       cname: "",
       depId: "",
+      dname:"",
       multipleSelection: [],
       dialogFormVisible: false,
-      form: {},
-      formLabelWidth: "80px"
+      dialogForm2Visible: false,
+      form: {
+      },
+      formopen:{
+      },
+      formLabelWidth: "80px",
+      depoptions:[],
+      teaoptions:[],
     }
   },
   created() {
     this.load()
+    this.loaddep()
   },
   methods:{
     load(){
@@ -131,25 +190,51 @@ export default {
           pageSize: this.pageSize,
           couId: this.couId,
           cname: this.cname,
+          dname: this.dname
         }
       }).then(res =>{
         console.log(res)
-
+        console.log(res.records)
         this.tableData = res.records
         this.total = res.total
+      })
+    },
+    loaddep(){
+      this.request.get("http://localhost:9090/department").then(res =>{
+        console.log(res)
+        this.depoptions = res
+      })
+    },
+
+    //根据学院号返回对应的Teacher list
+    loadtea(depId){
+      this.request.get("http://localhost:9090/teacher/opencourse/" + depId).then(res =>{
+        console.log(res)
+        this.teaoptions = res
       })
     },
     reset(){ //重置搜索框
       this.couId = ""
       this.cname = ""
-      this.depId = ""
+      this.dname = ""
       this.load()
     },
-    Edit(row){
+
+    //修改课程
+    editcourse(row){
       this.form = Object.assign({},row)  //该方法相比下一行，会使得修改数据的时候不会立刻刷新页面
       //this.form = row
       this.dialogFormVisible = true
     },
+
+    //开课
+    opencourse(row){
+      this.loadtea(row.depId)
+      this.formopen = Object.assign({},row)  //该方法相比下一行，会使得修改数据的时候不会立刻刷新页面
+      console.log(this.formopen)
+      this.dialogForm2Visible = true
+    },
+
     del(couId){
       this.request.delete("http://localhost:9090/course/" + couId).then(res => {
         if (res) {
@@ -176,12 +261,14 @@ export default {
       })
     },
 
-    //学生信息添加
-    stuadd(){
+    //课程信息添加
+    couadd(){
       this.dialogFormVisible = true
       this.form = {}
     },
-    stu_save(){
+
+    //课程信息插入||跟新
+    cou_save(){
       this.request.post("http://localhost:9090/course", this.form).then(res => {
         if (res) {
           this.$message.success("保存成功")
@@ -190,6 +277,25 @@ export default {
         } else {
           this.$message.error("保存失败")
         }
+      })
+    },
+    opencourse_save(){
+      console.log(this.formopen)
+      this.formopen.time = this.formopen.ftime + this.formopen.ltime
+      console.log(this.formopen.time)
+      this.request.post("http://localhost:9090/openclass/" +
+          this.formopen.couId + "/" +
+          this.formopen.teaId + "/" +
+          this.formopen.xq + "/" +
+          this.formopen.time + "/" +
+          this.formopen.uplim + "/").then(res => {
+            if (res) {
+              this.$message.success("保存成功")
+              this.dialogFormVisible = false
+              this.load()
+            } else {
+              this.$message.error("保存失败")
+            }
       })
     },
 

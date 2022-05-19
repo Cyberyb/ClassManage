@@ -37,7 +37,7 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` VALUES ('C01','数据库原理',5,1),('C02','操作系统',4,1),('C03','计算机网络',4,1),('C04','计算机组成原理',4,1),('C05','数据结构',4,1);
+INSERT INTO `course` VALUES ('C01','数据库原理',5,1),('C02','操作系统',4,1),('C03','计算机网络',4,1),('C04','计算机组成原理',4,1),('C05','数据结构',4,1),('C06','通信原理',5,3),('C07','社会学',2,5);
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +63,7 @@ CREATE TABLE `department` (
 
 LOCK TABLES `department` WRITE;
 /*!40000 ALTER TABLE `department` DISABLE KEYS */;
-INSERT INTO `department` VALUES (1,'计算机学院',NULL,NULL),(2,'理学院',NULL,NULL),(3,'通信学院',NULL,NULL),(4,'机电学院',NULL,NULL),(5,'文学院',NULL,NULL);
+INSERT INTO `department` VALUES (1,'计算机学院','东区计算机大楼',25125124),(2,'理学院','宝山校区理学院',NULL),(3,'通信学院','东区通信大楼',NULL),(4,'机电学院','东区机电大楼',NULL),(5,'文学院','东区文学院楼',NULL),(6,'经管学院','东区经管大楼',NULL);
 /*!40000 ALTER TABLE `department` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,8 +78,6 @@ CREATE TABLE `electclass` (
   `stu_id` int NOT NULL COMMENT '学号',
   `cou_id` varchar(10) NOT NULL COMMENT '课程号',
   `tea_id` varchar(10) NOT NULL COMMENT '教师号',
-  `xq` varchar(10) DEFAULT NULL COMMENT '学期',
-  `time` varchar(10) DEFAULT NULL COMMENT '课程时间',
   `cj` int DEFAULT NULL COMMENT '成绩',
   PRIMARY KEY (`stu_id`,`cou_id`,`tea_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='选课表';
@@ -91,7 +89,7 @@ CREATE TABLE `electclass` (
 
 LOCK TABLES `electclass` WRITE;
 /*!40000 ALTER TABLE `electclass` DISABLE KEYS */;
-INSERT INTO `electclass` VALUES (22001,'C01','T01','秋季学期','一1-2',86),(22004,'C02','T02','秋季学期','三5-6',92);
+INSERT INTO `electclass` VALUES (22001,'C01','T01',86),(22001,'C02','T02',NULL),(22001,'C03','T03',NULL),(22001,'C04','T04',NULL),(22002,'C01','T01',NULL),(22002,'C02','T02',86),(22002,'C03','T03',NULL),(22002,'C04','T04',NULL),(22004,'C02','T02',94),(22011,'C01','T02',NULL),(22014,'C01','T01',NULL),(22014,'C02','T02',90);
 /*!40000 ALTER TABLE `electclass` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +117,7 @@ CREATE TABLE `openclass` (
 
 LOCK TABLES `openclass` WRITE;
 /*!40000 ALTER TABLE `openclass` DISABLE KEYS */;
-INSERT INTO `openclass` VALUES ('C01','T01','秋季学期','一1-2',NULL,50),('C02','T02','秋季学期','三5-6',NULL,50),('C03','T03','冬季学期\n','四3-4',NULL,40),('C04','T04','春季学期','一7-8',NULL,40);
+INSERT INTO `openclass` VALUES ('C01','T02','秋季学期','一1-2',0,50),('C02','T03','秋季学期','二1-2',0,50),('C03','T03','冬季学期\n','四3-4',0,40),('C04','T04','春季学期','一7-8',0,40),('C07','T06','秋季学期','四7-8',0,40);
 /*!40000 ALTER TABLE `openclass` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,7 +145,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES (22001,'小红','女',1,'xiaohong',22001),(22002,'小明','男',2,'xiaoming',22002),(22003,'小杨','男',3,'xiaoyang',22003),(22004,'小张','女',1,'xiaozhang',22004),(22005,'张三','男',1,'zhangsan',22005),(22006,'李四','男',2,'lisi',22006),(22007,'王五','男',4,'wamgwu',22007),(22008,'赵六','男',5,'zhaoliu',22008),(22009,'玖玖里','女',5,'jiujiuli',22009),(22010,'茅崎英士','男',4,'yingshi',22010),(22011,'珂朵莉','女',2,'kutori',22011),(22012,'威廉','男',3,'william',22012),(22013,'东海帝皇','女',3,'Tokaiteo',22013),(22014,'米浴','女',4,'Riceshower',22014);
+INSERT INTO `student` VALUES (22001,'小红','女',1,'xiaohong',22001),(22002,'小明','男',2,'xiaoming',22002),(22003,'小杨','男',3,'xiaoyang',22003),(22004,'小张','女',1,'xiaozhang',22004),(22005,'张三','男',1,'zhangsan',22005),(22006,'李四','男',2,'lisi',22006),(22007,'王五','男',4,'wamgwu',22007),(22008,'赵六','男',5,'zhaoliu',22008),(22009,'玖玖里','女',5,'jiujiuli',22009),(22010,'茅崎英士','男',4,'yingshi',22010),(22011,'珂朵莉','女',2,'kutori',22011),(22012,'威廉','男',3,'william',22012),(22013,'东海帝皇','女',3,'Tokaiteo',22013),(22014,'米浴','女',4,'Riceshower',22014),(22015,'麦昆','女',5,'Mcqueen',22015);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +173,7 @@ CREATE TABLE `teacher` (
 
 LOCK TABLES `teacher` WRITE;
 /*!40000 ALTER TABLE `teacher` DISABLE KEYS */;
-INSERT INTO `teacher` VALUES ('T01','管理员',1,'admin','123','管理员'),('T02','谢希仁',1,'xiexiren','123','教师'),('T03','汤小丹',1,'tangxiaodan','123','教师'),('T04','白中英',1,'baizhongying','123','教师'),('T05','朴灵',3,'puling',NULL,'教师');
+INSERT INTO `teacher` VALUES ('T01','管理员',1,'admin','123','管理员'),('T02','谢希仁',1,'xiexiren','123','教师'),('T03','汤小丹',1,'tangxiaodan','123','教师'),('T04','白中英',1,'baizhongying','123','教师'),('T05','朴灵',3,'puling','123','教师'),('T06','毛法宪',5,'maofaxian','123','教师');
 /*!40000 ALTER TABLE `teacher` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -188,4 +186,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-17 22:22:44
+-- Dump completed on 2022-05-19 16:52:13

@@ -1,9 +1,11 @@
 package com.stu.spring_stu.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stu.spring_stu.entity.Course;
 import com.stu.spring_stu.mapper.CourseMapper;
 import com.stu.spring_stu.service.ICourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +19,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements ICourseService {
 
+    @Autowired
+    private CourseMapper courseMapper;
+
+    @Override
+    public Page<Course> findPage(Page<Course> page, String couId, String cname, String dname) {
+        return courseMapper.findPage(page,couId,cname,dname);
+    }
 }

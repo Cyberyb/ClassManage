@@ -39,5 +39,8 @@ public class Course implements Serializable {
     @TableField(value = "dep_id")
     private Integer depId;
 
+    @TableField(exist = false)
+    private String dname;
+
 
 }

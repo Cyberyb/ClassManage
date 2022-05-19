@@ -35,6 +35,7 @@ public class ElectclassController {
         return electclassService.saveOrUpdate(electclass);
     }
 
+    //登录成绩
     @PostMapping("/updategrade/{stuId}/{couId}/{teaId}/{cj}")
     public Electclass updategrade(@PathVariable String stuId,
                                @PathVariable String couId,
@@ -85,11 +86,11 @@ public class ElectclassController {
                                      @RequestParam(defaultValue = "") String stuId,
                                      @RequestParam(defaultValue = "") String couId,
                                      @RequestParam(defaultValue = "") String teaId) {
-        QueryWrapper<Electclass> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like(Strings.isNotEmpty(stuId),"stu_id",stuId);
-        queryWrapper.like(Strings.isNotEmpty(couId),"cou_id",couId);
-        queryWrapper.like(Strings.isNotEmpty(teaId),"tea_id",teaId);
-        return electclassService.page(new Page<>(pageNum, pageSize),queryWrapper);
+//        QueryWrapper<Electclass> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.like(Strings.isNotEmpty(stuId),"stu_id",stuId);
+//        queryWrapper.like(Strings.isNotEmpty(couId),"cou_id",couId);
+//        queryWrapper.like(Strings.isNotEmpty(teaId),"tea_id",teaId);
+        return electclassService.findPage(new Page<>(pageNum, pageSize),stuId,couId,teaId);
     }
 
 }

@@ -59,11 +59,12 @@ public class CourseController {
     public Page<Course> findPage(@RequestParam Integer pageNum,
                                  @RequestParam Integer pageSize,
                                  @RequestParam(defaultValue = "") String couId,
-                                 @RequestParam(defaultValue = "") String cname) {
-        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like(Strings.isNotEmpty(couId),"cou_id",couId);
-        queryWrapper.like(Strings.isNotEmpty(cname),"cname", cname);
-        return courseService.page(new Page<>(pageNum, pageSize),queryWrapper);
+                                 @RequestParam(defaultValue = "") String cname,
+                                 @RequestParam(defaultValue = "") String dname) {
+//        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.like(Strings.isNotEmpty(couId),"cou_id",couId);
+//        queryWrapper.like(Strings.isNotEmpty(cname),"cname", cname);
+        return courseService.findPage(new Page<>(pageNum, pageSize),couId,cname,dname);
     }
 
 }
