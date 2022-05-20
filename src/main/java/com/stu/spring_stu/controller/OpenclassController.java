@@ -50,7 +50,7 @@ public class OpenclassController {
     }
 
     @DeleteMapping("/{id}")
-    public Boolean delete(@PathVariable Integer id){
+    public Boolean delete(@PathVariable String id){
         return openclassService.removeById(id);
     }
 

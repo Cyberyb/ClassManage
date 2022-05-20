@@ -63,7 +63,7 @@ const routes = [
       {
         path: 'student',
         name: 'Studentselectclass',
-        component: () => import('../views/SOpenclass.vue'),
+        component: () => import('../views/Selectcourse.vue'),
       },
       {
         path: 'course',

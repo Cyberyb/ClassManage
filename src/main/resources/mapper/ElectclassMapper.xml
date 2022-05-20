@@ -32,4 +32,11 @@
 <!--            </if>-->
         </where>
     </select>
+    <select id="selectcoursebytime" resultType="com.stu.spring_stu.entity.Electclass">
+        SELECT * FROM
+        (SELECT stu_id,electclass.cou_id,electclass.tea_id,xq,time from electclass,openclass WHERE electclass.cou_id = openclass.cou_id AND electclass.tea_id = openclass.tea_id)
+        as temp WHERE stu_id = #{stuId} AND
+                            xq = #{xq} AND
+                        time = #{time};
+    </select>
 </mapper>

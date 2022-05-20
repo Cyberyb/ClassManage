@@ -15,11 +15,13 @@
     </div>
 
     <el-table :data="tableData" border stripe :header-cell-class-name="'headerBg'" @selection-change="handleSelectionChange">
-      <el-table-column prop="stuId" label="学号" width="140">
+      <el-table-column prop="stuId" label="学号" width="120">
+      </el-table-column>
+      <el-table-column prop="name" label="学生" width="140">
       </el-table-column>
       <el-table-column prop="couId" label="课程号" width="120">
       </el-table-column>
-      <el-table-column prop="teaId" label="教师号" width="140">
+      <el-table-column prop="cname" label="课程名" width="140">
       </el-table-column>
       <el-table-column prop="xq" label="开课学期" width="120">
       </el-table-column>
@@ -71,8 +73,10 @@ export default {
       pageNum: 1,
       pageSize: 10,
       stuId: "",
+      name:"",
       teaId: "",
       couId: "",
+      cname:"",
       xq:"",  //课程学期
       time:"",  //课程时间
       cj: "",  //成绩

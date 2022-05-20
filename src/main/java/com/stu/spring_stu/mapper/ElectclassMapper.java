@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.stu.spring_stu.entity.Openclass;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * <p>
  * 选课表 Mapper 接口
@@ -23,4 +25,6 @@ public interface ElectclassMapper extends BaseMapper<Electclass> {
     void updategrade(String stuId, String couId, String teaId, String cj);
 
     Page<Electclass> findPage(Page<Electclass> page, String stuId, String couId, String teaId);
+
+    List<Electclass> selectcoursebytime(String stuId,String xq, String time);
 }

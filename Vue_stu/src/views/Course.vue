@@ -297,6 +297,8 @@ export default {
               this.$message.error("保存失败")
             }
       })
+      console.log("测试")
+      this.dialogFormVisible = false;
     },
 
 

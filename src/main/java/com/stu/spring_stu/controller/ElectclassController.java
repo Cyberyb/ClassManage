@@ -3,7 +3,10 @@ package com.stu.spring_stu.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.stu.spring_stu.common.Constants;
+import com.stu.spring_stu.common.Result;
 import com.stu.spring_stu.entity.Department;
+import com.sun.org.apache.bcel.internal.classfile.Code;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
@@ -45,11 +48,20 @@ public class ElectclassController {
     }
 
     //选课
-    @PostMapping("/selectcourse/{stuId}/{couId}/{teaId}")
-    public Electclass selectcourse(@PathVariable String stuId,
-                             @PathVariable String couId,
-                             @PathVariable String teaId){
-        return electclassService.selectcourse(stuId,couId,teaId);
+    @PostMapping("/selectcourse/{stuId}/{couId}/{teaId}/{xq}/{time}")
+    public Result selectcourse(@PathVariable String stuId,
+                               @PathVariable String couId,
+                               @PathVariable String teaId,
+                               @PathVariable String xq,
+                               @PathVariable String time){
+        //先判断时间有无冲突
+        List<Electclass> sametimecourse = electclassService.selectcoursebytime(stuId,xq,time);
+        System.out.println("返回的值=====>");
+        System.out.println(sametimecourse.size());
+        if(sametimecourse.size() != 0){
+            return Result.error(Constants.CODE_600,"选课时间冲突");
+        }
+        return Result.success(electclassService.selectcourse(stuId,couId,teaId));
     }
 
     @GetMapping

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * <p>
  * 选课表 服务实现类
@@ -49,5 +51,10 @@ public class ElectclassServiceImpl extends ServiceImpl<ElectclassMapper, Electcl
     @Override
     public Page<Electclass> findPage(Page<Electclass> page, String stuId, String couId, String teaId) {
         return electclassMapper.findPage(page,stuId,couId,teaId);
+    }
+
+    @Override
+    public List<Electclass> selectcoursebytime(String stuId,String xq, String time) {
+        return electclassMapper.selectcoursebytime(stuId,xq,time);
     }
 }

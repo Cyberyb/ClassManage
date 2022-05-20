@@ -5,6 +5,8 @@ import com.stu.spring_stu.entity.Electclass;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  * 选课表 服务类
@@ -22,4 +24,6 @@ public interface IElectclassService extends IService<Electclass> {
     Electclass updategrade(String stuId, String couId, String teaId, String cj);
 
     Page<Electclass> findPage(Page<Electclass> page, String stuId, String couId, String teaId);
+
+    List<Electclass> selectcoursebytime(String stuId,String xq, String time);
 }
