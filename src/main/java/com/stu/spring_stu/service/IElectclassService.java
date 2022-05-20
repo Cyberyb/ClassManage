@@ -1,5 +1,6 @@
 package com.stu.spring_stu.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stu.spring_stu.entity.Electclass;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -26,4 +27,6 @@ public interface IElectclassService extends IService<Electclass> {
     Page<Electclass> findPage(Page<Electclass> page, String stuId, String couId, String teaId);
 
     List<Electclass> selectcoursebytime(String stuId,String xq, String time);
+
+    int removebystuId(QueryWrapper<Electclass> queryWrapper);
 }

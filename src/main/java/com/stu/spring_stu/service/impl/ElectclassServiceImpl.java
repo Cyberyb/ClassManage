@@ -1,5 +1,6 @@
 package com.stu.spring_stu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stu.spring_stu.entity.Electclass;
 import com.stu.spring_stu.mapper.ElectclassMapper;
@@ -56,5 +57,11 @@ public class ElectclassServiceImpl extends ServiceImpl<ElectclassMapper, Electcl
     @Override
     public List<Electclass> selectcoursebytime(String stuId,String xq, String time) {
         return electclassMapper.selectcoursebytime(stuId,xq,time);
+    }
+
+    @Override
+    public int removebystuId(QueryWrapper<Electclass> queryWrapper) {
+        //使用了Mybatis-plus的Mapper CRUD
+        return electclassMapper.delete(queryWrapper);
     }
 }

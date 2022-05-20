@@ -4,6 +4,7 @@ package com.stu.spring_stu.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stu.spring_stu.entity.Department;
+import com.stu.spring_stu.entity.Electclass;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
@@ -52,6 +53,17 @@ public class OpenclassController {
     @DeleteMapping("/{id}")
     public Boolean delete(@PathVariable String id){
         return openclassService.removeById(id);
+    }
+
+    //开课表的删除课程项
+    @DeleteMapping("/{couId}/{teaId}")
+    public Boolean delete(@PathVariable String couId,
+                          @PathVariable String teaId){
+        QueryWrapper<Openclass> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("cou_id",couId);
+        queryWrapper.eq("tea_id",teaId);
+        //ElectclassController.delete(couId,teaId);
+        return openclassService.remove(queryWrapper);
     }
 
     @GetMapping("/{id}")

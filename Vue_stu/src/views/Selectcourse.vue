@@ -130,11 +130,11 @@ export default {
           row.time).then(res =>{
         if(res.code == 200){
           this.$message.success("选课成功")
+          this.load()
         }else if(res.code == 600){
           this.$message.error("时间冲突选课失败")
         }
       })
-      this.load()
     },
     handleSelectionChange(val){
       this.multipleSelection = val

@@ -165,6 +165,8 @@ export default {
     },
     gradesave(){
       console.log(this.form)
+      if (this.form.cj == "")
+        this.form.cj = 0
       this.request.post("http://localhost:9090/electclass/updategrade/"+ this.form.stuId + "/" + this.form.couId + "/" + this.form.teaId + "/" + this.form.cj).then(res => {
         if (res) {
           this.$message.success("保存成功")

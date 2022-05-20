@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stu.spring_stu.common.Constants;
 import com.stu.spring_stu.common.Result;
 import com.stu.spring_stu.entity.Department;
+import com.stu.spring_stu.entity.Openclass;
 import com.sun.org.apache.bcel.internal.classfile.Code;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +57,7 @@ public class ElectclassController {
                                @PathVariable String time){
         //先判断时间有无冲突
         List<Electclass> sametimecourse = electclassService.selectcoursebytime(stuId,xq,time);
-        System.out.println("返回的值=====>");
+        System.out.println("查找到时间冲突课程的个数====>");
         System.out.println(sametimecourse.size());
         if(sametimecourse.size() != 0){
             return Result.error(Constants.CODE_600,"选课时间冲突");
@@ -80,6 +81,31 @@ public class ElectclassController {
     @DeleteMapping("/{id}")
     public Boolean delete(@PathVariable Integer id){
         return electclassService.removeById(id);
+    }
+
+    //删除某一条指定的选课记录
+    @DeleteMapping("/{stuId}/{couId}/{teaId}")
+    public Boolean delete(@PathVariable String stuId,
+                          @PathVariable String couId,
+                          @PathVariable String teaId){
+        QueryWrapper<Electclass> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("stu_id",stuId);
+        queryWrapper.eq("cou_id",couId);
+        queryWrapper.eq("tea_id",teaId);
+        queryWrapper.isNull("cj");  //有成绩的不能删除
+        return electclassService.remove(queryWrapper);
+    }
+
+    //删除指定学生项
+    @DeleteMapping("/delstu/{stuId}")
+    public Result delete(@PathVariable String stuId){
+        QueryWrapper<Electclass> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("stu_id",stuId);
+        //queryWrapper.isNull("cj");  //有成绩的不能删除
+        int num = electclassService.removebystuId(queryWrapper);
+        String msg = "一共删除了该学生的" + num + "条记录";
+        System.out.println(msg);
+        return Result.success(Constants.CODE_200,msg);
     }
 
     @GetMapping("/{id}")

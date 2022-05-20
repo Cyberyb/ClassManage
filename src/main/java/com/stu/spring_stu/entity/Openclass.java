@@ -50,5 +50,4 @@ public class Openclass implements Serializable {
     @ApiModelProperty("选课人数上限")
     private Integer uplim;
 
-
 }

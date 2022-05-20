@@ -17,24 +17,24 @@
 
     <div style="margin: 10px 0">
       <el-button type="primary" @click="stuadd">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
-      <el-popconfirm
-          class="ml-5"
-          confirm-button-text='确定'
-          cancel-button-text='我再想想'
-          icon="el-icon-info"
-          icon-color="red"
-          title="您确定批量删除这些数据吗？"
-          @confirm="delBatch"
-      >
-        <el-button type="danger" slot="reference">批量删除 <i class="el-icon-remove-outline"></i></el-button>
-      </el-popconfirm>
+<!--      <el-popconfirm-->
+<!--          class="ml-5"-->
+<!--          confirm-button-text='确定'-->
+<!--          cancel-button-text='我再想想'-->
+<!--          icon="el-icon-info"-->
+<!--          icon-color="red"-->
+<!--          title="您确定批量删除这些数据吗？"-->
+<!--          @confirm="delBatch"-->
+<!--      >-->
+<!--        <el-button type="danger" slot="reference">批量删除 <i class="el-icon-remove-outline"></i></el-button>-->
+<!--      </el-popconfirm>-->
     </div>
 
     <el-table :data="tableData" border stripe :header-cell-class-name="'headerBg'" @selection-change="handleSelectionChange">
-      <el-table-column
-          type="selection"
-          width="55">
-      </el-table-column>
+<!--      <el-table-column-->
+<!--          type="selection"-->
+<!--          width="55">-->
+<!--      </el-table-column>-->
       <el-table-column prop="stuId" label="学号" width="140">
       </el-table-column>
       <el-table-column prop="name" label="姓名" width="120">
@@ -52,11 +52,11 @@
           <el-button type="success" @click="Edit(scope.row)">编辑 <i class="el-icon-edit"></i></el-button>
           <el-popconfirm
               class = "ml-5"
-              confirm-button-text='好的'
-              cancel-button-text='不用了'
+              confirm-button-text='确认删除'
+              cancel-button-text='取消'
               icon="el-icon-info"
               icon-color="red"
-              title="您确定删除吗？"
+              title="注意！删除该学生会同时删去该学生的所有选课记录！"
               @confirm="del(scope.row.stuId)"
           >
             <el-button type="danger" slot="reference">删除 <i class="el-icon-remove-outline"></i></el-button>
@@ -69,7 +69,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="pageNum"
-          :page-sizes="[2, 4, 6, 8]"
+          :page-sizes="[2, 4, 6, 8, 10]"
           :page-size="pageSize"
           layout="total, sizes, prev, pager, next, jumper"
           :total="total">
@@ -138,7 +138,8 @@ export default {
       dialogFormVisible: false,
       form: {},
       formLabelWidth: "80px",
-      depoptions:[]
+      depoptions:[],
+      delmsg: ""
     }
   },
   created() {
@@ -173,6 +174,7 @@ export default {
       this.stuId = ""
       this.name = ""
       this.depId = ""
+      this.dname = ""
       this.load()
     },
     Edit(row){
@@ -181,14 +183,29 @@ export default {
       this.dialogFormVisible = true
     },
     del(stuId){
-      this.request.delete("http://localhost:9090/student/" + stuId).then(res => {
-        if (res) {
-          this.$message.success("删除成功")
-          this.load()
-        } else {
+      //删除学生的信息需要先删除选课表中该学生未登录成绩的项
+      this.request.delete("http://localhost:9090/electclass/delstu/" + stuId).then(res =>{
+        if (res.code == 200){
+          this.msg = res.msg
+          this.request.delete("http://localhost:9090/student/" + stuId).then(res => {
+            if (res) {
+              this.$message.success("删除成功," + this.msg)
+              this.load()
+            } else {
+              this.$message.error("删除失败")
+            }
+          })
+        }
+        else {
           this.$message.error("删除失败")
         }
       })
+
+
+
+
+
+
     },
 
     handleSelectionChange(val){
