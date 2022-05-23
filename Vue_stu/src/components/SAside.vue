@@ -30,6 +30,9 @@
       <el-menu-item index="/s/course">
         <template slot="title">课表查询</template>
       </el-menu-item>
+      <el-menu-item index="/s/grade">
+        <template slot="title">成绩查询</template>
+      </el-menu-item>
     </el-submenu>
   </el-menu>
 </template>

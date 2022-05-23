@@ -28,7 +28,7 @@ public class OpenclassServiceImpl extends ServiceImpl<OpenclassMapper, Openclass
     }
 
     @Override
-    public Page<Openclass> findPage(Page<Openclass> page, String couId, String teaId,String xq) {
-        return openclassMapper.findPage(page,couId,teaId,xq);
+    public Page<Openclass> findPage(Page<Openclass> page, String couId, String teaId,String cname,String tname,String xq) {
+        return openclassMapper.findPage(page,couId,teaId,cname,tname,xq);
     }
 }

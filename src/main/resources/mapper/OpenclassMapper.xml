@@ -14,8 +14,10 @@
         <where>
             openclass.cou_id like concat('%',#{couId},'%')
             and openclass.tea_id like concat('%',#{teaId},'%')
+            and course.cname like concat('%',#{cname},'%')
+            and teacher.tname like concat('%',#{tname},'%')
             <if test="xq != null and xq != ''">
-                and xq = #{xq}
+                and xq like concat('%',#{xq},'%')
             </if>
         </where>
     </select>

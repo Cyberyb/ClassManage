@@ -9,15 +9,24 @@
 
     <div style="margin: 10px 0">
       <el-input style="width: 200px" placeholder="请输入课程号" suffix-icon="el-icon-search" v-model="couId"></el-input>
-      <el-input style="width: 200px" placeholder="请输入教师号" suffix-icon="el-icon-message" class="ml-5" v-model="teaId"></el-input>
-      <el-select v-model="xq" placeholder="请选择学期" clearable class="ml-5">
-        <el-option label="秋季学期" value="秋季学期"></el-option>
-        <el-option label="冬季学期" value="冬季学期"></el-option>
-        <el-option label="春季学期" value="春季学期"></el-option>
-        <el-option label="夏季学期" value="夏季学期"></el-option>
-      </el-select>
+      <el-input style="width: 200px" placeholder="请输入课程名" suffix-icon="el-icon-message" class="ml-5" v-model="cname"></el-input>
+      <el-input style="width: 200px" placeholder="请输入教师号" suffix-icon="el-icon-search" class="ml-5" v-model="teaId"></el-input>
+      <el-input style="width: 200px" placeholder="请输入教师名" suffix-icon="el-icon-message" class="ml-5" v-model="tname"></el-input>
+
+<!--      <el-select v-model="xq" placeholder="请选择学期" clearable class="ml-5">-->
+<!--        <el-option label="秋季学期" value="秋季学期"></el-option>-->
+<!--        <el-option label="冬季学期" value="冬季学期"></el-option>-->
+<!--        <el-option label="春季学期" value="春季学期"></el-option>-->
+<!--        <el-option label="夏季学期" value="夏季学期"></el-option>-->
+<!--      </el-select>-->
       <el-button class="ml-5" type="primary" @click="load">搜索</el-button>
       <el-button class="ml-5" type="warning" @click="reset">清空</el-button>
+      <el-radio-group style="margin-left: 300px" v-model="xq" @change="load">
+        <el-radio-button label="秋" value="秋季学期" ></el-radio-button>
+        <el-radio-button label="冬" value="冬季学期"></el-radio-button>
+        <el-radio-button label="春" value="春季学期"></el-radio-button>
+        <el-radio-button label="夏" value="夏季学期"></el-radio-button>
+      </el-radio-group>
     </div>
 
     <el-table :data="tableData" border stripe :header-cell-class-name="'headerBg'" @selection-change="handleSelectionChange">
@@ -43,7 +52,7 @@
       </el-table-column>
       <el-table-column label="操作"  width="240" align="center">
         <template slot-scope="scope">
-          <el-button type="success" @click="selectClass(scope.row)">选课 <i class="el-icon-edit"></i></el-button>
+          <el-button type="success" v-if="scope.row.stunum < scope.row.uplim " @click="selectClass(scope.row)">选课 <i class="el-icon-edit"></i></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -52,7 +61,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="pageNum"
-          :page-sizes="[2, 4, 6, 8,10]"
+          :page-sizes="[2, 4, 6, 8, 10]"
           :page-size="pageSize"
           layout="total, sizes, prev, pager, next, jumper"
           :total="total">
@@ -75,7 +84,7 @@ export default {
       couId: "",
       cname:"",
       tname:"",
-      xq:"",  //课程学期
+      xq:"秋",  //课程学期
       time:"",  //课程时间
       stunum:"", //选课人数
       uplim:"",  //人数上限
@@ -99,7 +108,9 @@ export default {
           pageNum: this.pageNum,
           pageSize: this.pageSize,
           couId: this.couId,
+          cname:this.cname,
           teaId: this.teaId,
+          tname:this.tname,
           xq:this.xq
         }
       }).then(res =>{
@@ -112,6 +123,8 @@ export default {
     reset(){ //重置搜索框
       this.teaId = ""
       this.couId = ""
+      this.cname = ""
+      this.tname = ""
       this.xq = ""
       this.load()
     },
@@ -133,6 +146,8 @@ export default {
           this.load()
         }else if(res.code == 600){
           this.$message.error("时间冲突选课失败")
+        }else if(res.code == 601){
+          this.$message.error(res.msg)
         }
       })
     },

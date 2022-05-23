@@ -16,5 +16,5 @@ public interface IOpenclassService extends IService<Openclass> {
 
     boolean opencouse(String couId, String teaId, String xq, String time, Integer uplim);
 
-    Page<Openclass> findPage(Page<Openclass> page, String couId, String teaId,String xq);
+    Page<Openclass> findPage(Page<Openclass> page, String couId, String teaId,String cname,String tname,String xq);
 }

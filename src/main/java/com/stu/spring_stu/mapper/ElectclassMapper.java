@@ -26,7 +26,9 @@ public interface ElectclassMapper extends BaseMapper<Electclass> {
 
     void updategrade(String stuId, String couId, String teaId, String cj);
 
-    Page<Electclass> findPage(Page<Electclass> page, String stuId, String couId, String teaId);
+    Page<Electclass> findPage(Page<Electclass> page, String stuId, String couId,String cname, String teaId,String tname,String xq);
 
     List<Electclass> selectcoursebytime(String stuId,String xq, String time);
+
+    Page<Electclass> findGrades(Page<Electclass> page, String stuId, String couId, String teaId, String xq);
 }

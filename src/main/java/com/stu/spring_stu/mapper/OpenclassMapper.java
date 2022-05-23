@@ -18,5 +18,5 @@ public interface OpenclassMapper extends BaseMapper<Openclass> {
 
     boolean openclass(String couId, String teaId, String xq, String time, Integer uplim);
 
-    Page<Openclass> findPage(Page<Openclass> page, String couId, String teaId,String xq);
+    Page<Openclass> findPage(Page<Openclass> page, String couId, String teaId,String cname,String tname,String xq);
 }

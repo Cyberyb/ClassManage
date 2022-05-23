@@ -70,6 +70,11 @@ const routes = [
         name: 'courseyouselected',
         component: () => import('../views/SElectclass.vue'),
       },
+      {
+        path: 'grade',
+        name: 'mygrades',
+        component: () => import('../views/Stugrade.vue'),
+      },
     ]
   },
   {

@@ -57,8 +57,15 @@ public class ElectclassController {
                                @PathVariable String time){
         //先判断时间有无冲突
         List<Electclass> sametimecourse = electclassService.selectcoursebytime(stuId,xq,time);
+        QueryWrapper<Electclass> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("stu_id",stuId);
+        queryWrapper.eq("cou_id",couId);
         System.out.println("查找到时间冲突课程的个数====>");
         System.out.println(sametimecourse.size());
+        List<Electclass> samecourse = electclassService.list(queryWrapper);
+        if(samecourse.size()!=0){
+            return Result.error(Constants.CODE_601,"您已经选过了本学期的同类课程，请勿重复选择");
+        }
         if(sametimecourse.size() != 0){
             return Result.error(Constants.CODE_600,"选课时间冲突");
         }
@@ -123,12 +130,29 @@ public class ElectclassController {
                                      @RequestParam Integer pageSize,
                                      @RequestParam(defaultValue = "") String stuId,
                                      @RequestParam(defaultValue = "") String couId,
-                                     @RequestParam(defaultValue = "") String teaId) {
+                                     @RequestParam(defaultValue = "") String cname,
+                                     @RequestParam(defaultValue = "") String teaId,
+                                     @RequestParam(defaultValue = "") String tname,
+                                     @RequestParam(defaultValue = "") String xq) {
 //        QueryWrapper<Electclass> queryWrapper = new QueryWrapper<>();
 //        queryWrapper.like(Strings.isNotEmpty(stuId),"stu_id",stuId);
 //        queryWrapper.like(Strings.isNotEmpty(couId),"cou_id",couId);
 //        queryWrapper.like(Strings.isNotEmpty(teaId),"tea_id",teaId);
-        return electclassService.findPage(new Page<>(pageNum, pageSize),stuId,couId,teaId);
+        return electclassService.findPage(new Page<>(pageNum, pageSize),stuId,couId,cname,teaId,tname,xq);
+    }
+
+    @GetMapping("/gradepage")
+    public Page<Electclass> findGrades(@RequestParam Integer pageNum,
+                                     @RequestParam Integer pageSize,
+                                     @RequestParam(defaultValue = "") String stuId,
+                                     @RequestParam(defaultValue = "") String couId,
+                                     @RequestParam(defaultValue = "") String teaId ,
+                                     @RequestParam(defaultValue = "") String xq) {
+//        QueryWrapper<Electclass> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.like(Strings.isNotEmpty(stuId),"stu_id",stuId);
+//        queryWrapper.like(Strings.isNotEmpty(couId),"cou_id",couId);
+//        queryWrapper.like(Strings.isNotEmpty(teaId),"tea_id",teaId);
+        return electclassService.findGrades(new Page<>(pageNum, pageSize), stuId, couId, teaId, xq);
     }
 
 }

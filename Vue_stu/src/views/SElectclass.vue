@@ -3,15 +3,29 @@
     <div style="margin-bottom: 30px">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/s' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>选课表管理</el-breadcrumb-item>
+        <el-breadcrumb-item>课表管理</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
 
     <div style="margin: 10px 0">
-      <el-input style="width: 200px" placeholder="请输入课程号" suffix-icon="el-icon-message" class="ml-5" v-model="couId"></el-input>
-      <el-input style="width: 200px" placeholder="请输入教师号" suffix-icon="el-icon-message" class="ml-5" v-model="teaId"></el-input>
+      <el-input style="width: 200px" placeholder="请输入课程号" suffix-icon="el-icon-search" v-model="couId"></el-input>
+      <el-input style="width: 200px" placeholder="请输入课程名" suffix-icon="el-icon-message" class="ml-5" v-model="cname"></el-input>
+      <el-input style="width: 200px" placeholder="请输入教师号" suffix-icon="el-icon-search" class="ml-5" v-model="teaId"></el-input>
+      <el-input style="width: 200px" placeholder="请输入教师名" suffix-icon="el-icon-message" class="ml-5" v-model="tname"></el-input>
       <el-button class="ml-5" type="primary" @click="load">搜索</el-button>
       <el-button class="ml-5" type="warning" @click="reset">清空</el-button>
+<!--      <el-select class = "selectxq" v-model="xq" placeholder="请选择学期" clearable>-->
+<!--        <el-option label="秋季学期" value="秋季学期"></el-option>-->
+<!--        <el-option label="冬季学期" value="冬季学期"></el-option>-->
+<!--        <el-option label="春季学期" value="春季学期"></el-option>-->
+<!--        <el-option label="夏季学期" value="夏季学期"></el-option>-->
+<!--      </el-select>-->
+      <el-radio-group class = "selectxq" v-model="xq" @change="load">
+        <el-radio-button label="秋" value="秋季学期" ></el-radio-button>
+        <el-radio-button label="冬" value="冬季学期"></el-radio-button>
+        <el-radio-button label="春" value="春季学期"></el-radio-button>
+        <el-radio-button label="夏" value="夏季学期"></el-radio-button>
+      </el-radio-group>
     </div>
 
     <el-table :data="tableData" border stripe :header-cell-class-name="'headerBg'" @selection-change="handleSelectionChange">
@@ -102,7 +116,7 @@ export default {
       couId: "",
       tname:"",
       cname:"",
-      xq:"",  //课程学期
+      xq:"秋",  //课程学期
       time:"",  //课程时间
       cj: "",  //成绩
       multipleSelection: [],
@@ -124,8 +138,10 @@ export default {
           pageSize: this.pageSize,
           stuId: this.user.stuId,
           couId: this.couId,
+          cname:this.cname,
           teaId: this.teaId,
-          
+          tname:this.tname,
+          xq:this.xq,
         }
       }).then(res =>{
         console.log(res)
@@ -138,6 +154,8 @@ export default {
       this.stuId = ""
       this.teaId = ""
       this.couId = ""
+      this.cname = ""
+      this.tname = ""
       this.load()
     },
     Edit(row){
@@ -219,4 +237,8 @@ export default {
 .headerBg {
     background: #eee!important;
   }
+
+.selectxq{
+  margin-left: 300px;
+}
 </style>

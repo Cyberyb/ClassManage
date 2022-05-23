@@ -50,8 +50,8 @@ public class ElectclassServiceImpl extends ServiceImpl<ElectclassMapper, Electcl
     }
 
     @Override
-    public Page<Electclass> findPage(Page<Electclass> page, String stuId, String couId, String teaId) {
-        return electclassMapper.findPage(page,stuId,couId,teaId);
+    public Page<Electclass> findPage(Page<Electclass> page, String stuId, String couId,String cname,String teaId,String tname,String xq) {
+        return electclassMapper.findPage(page,stuId,couId,cname,teaId,tname,xq);
     }
 
     @Override
@@ -64,4 +64,10 @@ public class ElectclassServiceImpl extends ServiceImpl<ElectclassMapper, Electcl
         //使用了Mybatis-plus的Mapper CRUD
         return electclassMapper.delete(queryWrapper);
     }
+
+    @Override
+    public Page<Electclass> findGrades(Page<Electclass> page, String stuId, String couId, String teaId, String xq) {
+        return electclassMapper.findGrades(page,stuId,couId,teaId,xq);
+    }
+
 }

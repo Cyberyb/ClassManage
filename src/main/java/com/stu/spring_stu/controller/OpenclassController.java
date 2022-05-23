@@ -81,11 +81,13 @@ public class OpenclassController {
                                     @RequestParam Integer pageSize,
                                     @RequestParam(defaultValue = "") String couId,
                                     @RequestParam(defaultValue = "") String teaId,
+                                    @RequestParam(defaultValue = "") String cname,
+                                    @RequestParam(defaultValue = "") String tname,
                                     @RequestParam(defaultValue = "") String xq) {
 //        QueryWrapper<Openclass> queryWrapper = new QueryWrapper<>();
 //        queryWrapper.like(Strings.isNotEmpty(couId),"cou_id",couId);
 //        queryWrapper.like(Strings.isNotEmpty(teaId),"tea_id",teaId);
-        return openclassService.findPage(new Page<>(pageNum, pageSize),couId,teaId,xq);
+        return openclassService.findPage(new Page<>(pageNum, pageSize),couId,teaId,cname,tname,xq);
     }
 
 }
