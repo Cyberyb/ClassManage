@@ -41,7 +41,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="pageNum"
-          :page-sizes="[2, 4, 6, 8]"
+          :page-sizes="[2, 4, 6, 8, 10]"
           :page-size="pageSize"
           layout="total, sizes, prev, pager, next, jumper"
           :total="total">
@@ -50,14 +50,20 @@
 
 
     <el-dialog title="修改分数" :visible.sync="dialogFormVisible" width="30%">
-      <el-form>
-        <el-form-item label="成绩" :label-width="formLabelWidth">
-          <el-input v-model="form.cj" autocomplete="off"></el-input>
+      <el-form :model="form"
+               ref="form"
+               :rules="rules"
+      >
+        <el-form-item
+            prop="cj"
+            label="成绩"
+            :label-width="formLabelWidth">
+          <el-input v-model.number="form.cj"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="gradesave">确 定</el-button>
+        <el-button type="primary" @click="gradesave('form')">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -67,6 +73,23 @@
 export default {
   name: "Course",
   data() {
+    var checkGrade = (rule, value, callback) => {
+      console.log(value)
+      if (!value) {
+        return callback(new Error('成绩不能为空'));
+      }
+      setTimeout(() => {
+        if (!Number.isInteger(value)) {
+          callback(new Error('请输入数字值'));
+        } else {
+          if (value < 0 || value > 100) {
+            callback(new Error('分数必须在0-100之间'));
+          } else {
+            callback();
+          }
+        }
+      }, 1000);
+    };
     return {
       tableData: [],
       total: 0,
@@ -82,10 +105,17 @@ export default {
       cj: "",  //成绩
       multipleSelection: [],
       dialogFormVisible: false,
-      form: {},
+      form: {
+        cj:''
+      },
       formLabelWidth: "80px",
       user:localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):{},
       radio:localStorage.getItem("radio")?JSON.parse(localStorage.getItem("radio")):{},
+      rules:{
+        cj:[
+          { validator: checkGrade, trigger: 'blur' }
+            ]
+      }
     }
   },
   created() {
@@ -163,17 +193,25 @@ export default {
       this.dialogFormVisible = true
       this.form = {}
     },
-    gradesave(){
-      console.log(this.form)
-      if (this.form.cj == "")
-        this.form.cj = 0
-      this.request.post("http://localhost:9090/electclass/updategrade/"+ this.form.stuId + "/" + this.form.couId + "/" + this.form.teaId + "/" + this.form.cj).then(res => {
-        if (res) {
-          this.$message.success("保存成功")
-          this.dialogFormVisible = false
-          this.load()
-        } else {
-          this.$message.error("保存失败")
+    gradesave(fromname){
+      this.$refs[fromname].validate((valid) => {
+        if(valid){
+          console.log(this.form)
+          if (this.form.cj == "")
+            this.form.cj = 0
+          this.request.post("http://localhost:9090/electclass/updategrade/"+ this.form.stuId + "/" + this.form.couId + "/" + this.form.teaId + "/" + this.form.cj).then(res => {
+            if (res) {
+              this.$message.success("保存成功")
+              this.dialogFormVisible = false
+              this.load()
+            } else {
+              this.$message.error("保存失败")
+            }
+          })
+        }
+        else {
+          console.log('error submit!!');
+          return false;
         }
       })
     },

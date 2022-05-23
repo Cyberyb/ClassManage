@@ -2,6 +2,7 @@ package com.stu.spring_stu.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.stu.spring_stu.common.ClassResult;
 import com.stu.spring_stu.entity.Electclass;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.apache.ibatis.annotations.Param;
@@ -31,4 +32,6 @@ public interface IElectclassService extends IService<Electclass> {
     int removebystuId(QueryWrapper<Electclass> queryWrapper);
 
     Page<Electclass> findGrades(Page<Electclass> page, String stuId, String couId, String teaId, String xq);
+
+    ClassResult findClassinfo(String teaId, String couId);
 }

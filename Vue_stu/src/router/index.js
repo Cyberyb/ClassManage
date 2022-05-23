@@ -91,12 +91,12 @@ const routes = [
       {
         path: 'teacher',
         name: 'teachergrade',
-        component: () => import('../views/TElectclass.vue'),
+        component: () => import('../views/TElectclass'),
       },
       {
         path: 'myclass',
         name: 'teacherclass',
-        component: () => import('../views/SElectclass.vue'),
+        component: () => import('../views/Tmyclass'),
       },
     ]
   },

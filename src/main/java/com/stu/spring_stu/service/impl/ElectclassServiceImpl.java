@@ -2,6 +2,7 @@ package com.stu.spring_stu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.stu.spring_stu.common.ClassResult;
 import com.stu.spring_stu.entity.Electclass;
 import com.stu.spring_stu.mapper.ElectclassMapper;
 import com.stu.spring_stu.service.IElectclassService;
@@ -68,6 +69,16 @@ public class ElectclassServiceImpl extends ServiceImpl<ElectclassMapper, Electcl
     @Override
     public Page<Electclass> findGrades(Page<Electclass> page, String stuId, String couId, String teaId, String xq) {
         return electclassMapper.findGrades(page,stuId,couId,teaId,xq);
+    }
+
+    @Override
+    public ClassResult findClassinfo(String teaId, String couId) {
+        Integer numofStu = electclassMapper.findNumofStu(teaId,couId);
+        Integer numofgrade = electclassMapper.findNumofGrade(teaId,couId);
+        Integer numofgood = electclassMapper.findNumofGood(teaId,couId);
+        Integer numofgreat = electclassMapper.findNumofGreat(teaId,couId);
+        ClassResult res = new ClassResult(numofStu,numofgrade,numofgood,numofgreat);
+        return res;
     }
 
 }

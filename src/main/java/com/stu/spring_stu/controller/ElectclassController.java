@@ -3,6 +3,7 @@ package com.stu.spring_stu.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.stu.spring_stu.common.ClassResult;
 import com.stu.spring_stu.common.Constants;
 import com.stu.spring_stu.common.Result;
 import com.stu.spring_stu.entity.Department;
@@ -139,6 +140,12 @@ public class ElectclassController {
 //        queryWrapper.like(Strings.isNotEmpty(couId),"cou_id",couId);
 //        queryWrapper.like(Strings.isNotEmpty(teaId),"tea_id",teaId);
         return electclassService.findPage(new Page<>(pageNum, pageSize),stuId,couId,cname,teaId,tname,xq);
+    }
+
+    @GetMapping("/classinfo/{teaId}/{couId}")
+    public ClassResult findClassinfo(@PathVariable String teaId,
+                                     @PathVariable String couId){
+        return electclassService.findClassinfo(teaId,couId);
     }
 
     @GetMapping("/gradepage")

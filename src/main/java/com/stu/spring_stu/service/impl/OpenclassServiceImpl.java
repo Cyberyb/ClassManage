@@ -1,5 +1,6 @@
 package com.stu.spring_stu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stu.spring_stu.entity.Openclass;
 import com.stu.spring_stu.mapper.OpenclassMapper;
@@ -7,6 +8,8 @@ import com.stu.spring_stu.service.IOpenclassService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -30,5 +33,10 @@ public class OpenclassServiceImpl extends ServiceImpl<OpenclassMapper, Openclass
     @Override
     public Page<Openclass> findPage(Page<Openclass> page, String couId, String teaId,String cname,String tname,String xq) {
         return openclassMapper.findPage(page,couId,teaId,cname,tname,xq);
+    }
+
+    @Override
+    public List<Openclass> findCoursebyteaId(String teaId) {
+        return openclassMapper.findCoursebyteaId(teaId);
     }
 }

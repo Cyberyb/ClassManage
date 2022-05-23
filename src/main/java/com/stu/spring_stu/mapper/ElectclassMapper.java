@@ -2,6 +2,7 @@ package com.stu.spring_stu.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.stu.spring_stu.common.ClassResult;
 import com.stu.spring_stu.entity.Electclass;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.stu.spring_stu.entity.Openclass;
@@ -31,4 +32,12 @@ public interface ElectclassMapper extends BaseMapper<Electclass> {
     List<Electclass> selectcoursebytime(String stuId,String xq, String time);
 
     Page<Electclass> findGrades(Page<Electclass> page, String stuId, String couId, String teaId, String xq);
+
+    Integer findNumofStu(String teaId, String couId);
+
+    Integer findNumofGrade(String teaId, String couId);
+
+    Integer findNumofGood(String teaId, String couId);
+
+    Integer findNumofGreat(String teaId, String couId);
 }

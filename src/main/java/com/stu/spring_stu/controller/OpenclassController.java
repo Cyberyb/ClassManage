@@ -66,14 +66,23 @@ public class OpenclassController {
         return openclassService.remove(queryWrapper);
     }
 
-    @GetMapping("/{id}")
-    public Openclass findOne(@PathVariable Integer id) {
-        return openclassService.getById(id);
+    @GetMapping("/{teaId}")
+    public List<Openclass> findAll(@PathVariable String teaId) {
+        return openclassService.findCoursebyteaId(teaId);
     }
 
     @PostMapping("/del/batch")
     public boolean deleteBatch(@RequestBody List<Integer> ids) { // [1,2,3]
         return openclassService.removeByIds(ids);
+    }
+
+    @GetMapping("/myclass/{teaId}{couId}")
+    public Openclass findCourse(@PathVariable String teaId,
+                                @PathVariable String couId){
+        QueryWrapper<Openclass> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("tea_id",teaId);
+        queryWrapper.eq("cou_id",couId);
+        return openclassService.getOne(queryWrapper);
     }
 
     @GetMapping("/page")

@@ -21,4 +21,8 @@
             </if>
         </where>
     </select>
+    <select id="findCoursebyteaId" resultType="com.stu.spring_stu.entity.Openclass">
+        select openclass.*,course.cname from openclass,course where openclass.cou_id = course.cou_id
+            and openclass.tea_id =#{teaId}
+    </select>
 </mapper>

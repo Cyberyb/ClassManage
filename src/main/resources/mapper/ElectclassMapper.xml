@@ -63,4 +63,16 @@
             <!--            </if>-->
         </where>
     </select>
+    <select id="findNumofStu" resultType="java.lang.Integer">
+        select count(stu_id) from electclass where tea_id = #{teaId} and cou_id = #{couId}
+    </select>
+    <select id="findNumofGrade" resultType="java.lang.Integer">
+        select count(stu_id) from electclass where tea_id = #{teaId} and cou_id = #{couId} and cj is not null
+    </select>
+    <select id="findNumofGood" resultType="java.lang.Integer">
+        select count(stu_id) from electclass where tea_id = #{teaId} and cou_id = #{couId} and cj >=60
+    </select>
+    <select id="findNumofGreat" resultType="java.lang.Integer">
+        select count(stu_id) from electclass where tea_id = #{teaId} and cou_id = #{couId} and cj >=90
+    </select>
 </mapper>
