@@ -250,10 +250,6 @@ export default {
       })
     },
     stu_update(){
-      console.log(this.updstuId)
-      console.log(this.updusername)
-      console.log(this.form.stuId)
-      console.log(this.form.username)
       this.request.post("http://localhost:9090/student/update/" + this.updstuId + "/" + this.updusername, this.form).then(res => {
         if (res.code == 200) {
           this.$message.success("更新成功")

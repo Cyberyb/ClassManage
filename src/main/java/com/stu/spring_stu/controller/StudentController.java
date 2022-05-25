@@ -49,7 +49,6 @@ public class StudentController {
                          @PathVariable String upusername){
         Integer stuId = student.getStuId();
         String username = student.getUsername();
-        System.out.println("================" + (Objects.equals(upusername, username)) );
         if(!Objects.equals(username, upusername)){
             QueryWrapper<Student> queryWrapper1 = new QueryWrapper<>();
             queryWrapper1.eq("username",username);
@@ -76,7 +75,7 @@ public class StudentController {
             studentService.save(student);
             return Result.success();
         }
-        else if(a == 0)
+        else if(a != 0)
             return Result.error(Constants.CODE_602,"学号重复，请重新创建");
         else
             return Result.error(Constants.CODE_603,"账号重复，请重新创建");
