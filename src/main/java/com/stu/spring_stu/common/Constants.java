@@ -8,6 +8,8 @@ public interface Constants {
     String CODE_500 = "500"; // 系统错误
     String CODE_600 = "600"; // 课程时间冲突
     String CODE_601 = "601"; // 同类型课程冲突
+    String CODE_602 = "602"; // Id重复
+    String CODE_603 = "603"; // 账号重复
 
     String DICT_TYPE_ICON = "icon";
 

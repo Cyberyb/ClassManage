@@ -77,9 +77,9 @@
     </div>
 
 
-    <el-dialog title="新增学生信息" :visible.sync="dialogFormVisible" width="30%">
+    <el-dialog title="新增/修改学生信息" :visible.sync="dialogFormVisible" width="30%">
       <el-form :model="form" size="small ">
-        <el-form-item label="学号" :label-width="formLabelWidth">
+        <el-form-item label="学号" :label-width="formLabelWidth" v-if="this.add == true">
           <el-input v-model="form.stuId" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="姓名" :label-width="formLabelWidth">
@@ -111,7 +111,8 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="stu_save">确 定</el-button>
+        <el-button type="primary" @click="stu_save" v-if="add === true">确定添加</el-button>
+        <el-button type="primary" @click="stu_update" v-if="add === false">确定更新</el-button>
       </div>
     </el-dialog>
   </div>
@@ -137,6 +138,9 @@ export default {
       msg: "hello",
       dialogFormVisible: false,
       form: {},
+      add: true,
+      updstuId:"",
+      updusername:"",
       formLabelWidth: "80px",
       depoptions:[],
       delmsg: ""
@@ -178,6 +182,9 @@ export default {
       this.load()
     },
     Edit(row){
+      this.updstuId = row.stuId
+      this.updusername = row.username
+      this.add = false
       this.form = Object.assign({},row)  //该方法相比下一行，会使得修改数据的时候不会立刻刷新页面
       //this.form = row
       this.dialogFormVisible = true
@@ -225,17 +232,37 @@ export default {
 
     //学生信息添加
     stuadd(){
+      this.add = true
       this.dialogFormVisible = true
       this.form = {}
     },
     stu_save(){
       this.request.post("http://localhost:9090/student", this.form).then(res => {
-        if (res) {
+        if (res.code == 200) {
           this.$message.success("保存成功")
           this.dialogFormVisible = false
           this.load()
-        } else {
-          this.$message.error("保存失败")
+        } else if(res.code == 602) {
+          this.$message.error("保存失败:" + res.msg)
+        } else if(res.code == 603) {
+          this.$message.error("保存失败:" + res.msg)
+        }
+      })
+    },
+    stu_update(){
+      console.log(this.updstuId)
+      console.log(this.updusername)
+      console.log(this.form.stuId)
+      console.log(this.form.username)
+      this.request.post("http://localhost:9090/student/update/" + this.updstuId + "/" + this.updusername, this.form).then(res => {
+        if (res.code == 200) {
+          this.$message.success("更新成功")
+          this.dialogFormVisible = false
+          this.load()
+        } else if(res.code == 602) {
+          this.$message.error("保存失败:" + res.msg)
+        } else if(res.code == 603) {
+          this.$message.error("保存失败:" + res.msg)
         }
       })
     },
